@@ -44,41 +44,53 @@ public class OOPMultipleControl
     //TODO: add more of your code :
 
 
-    public boolean HasInherentAmbiguity(Class<?> cl) throws OOPMultipleException
+    public static boolean HasInherentAmbiguity(Class<?> cl) throws OOPMultipleException
     {
         Queue<Class<?>> queue = new LinkedList<Class<?>>();
         Set<Class<?>> types = new HashSet<>();
         queue.add(cl);
         types.add(cl);
+
+        if (!cl.isAnnotationPresent(OOPMultipleInterface.class))
+        {
+            throw new OOPBadClass(cl); // change c1 to interfaceClass
+        }
+
         //BFS:
         while (!queue.isEmpty())
         {
             Class<?> curr = queue.poll();
+
             Class<?>[] supers = curr.getInterfaces();
+
             for (Class<?> next : supers)
             {
-                if(next == null ){
+                if (next == null)
+                {
                     break;
                 }
 
-                if(!next.getClass().isAnnotationPresent(OOPMultipleInterface.class))
+                if (!next.isAnnotationPresent(OOPMultipleInterface.class))
                 {
-                    throw new OOPBadClass(interfaceClass);
+                    throw new OOPBadClass(cl); // change c1 to interfaceClass
+                }
+
+                Method[] nextMethods = next.getDeclaredMethods();
+                for (Method method : nextMethods)
+                {
+                    if (!method.isAnnotationPresent(OOPMultipleMethod.class))
+                    {
+                        throw new OOPBadClass(cl); // change c1 to interfaceClass
+                    }
                 }
 
                 if (types.contains(next))
                 {
-                    Method[] nextMethods = next.getDeclaredMethods();
                     for (Method method : nextMethods)
                     {
-                        if(!method.isAnnotationPresent(OOPMultipleMethod.class))
-                        {
-                            throw new OOPBadClass(interfaceClass);
-                        }
-
                         if (!Modifier.isPrivate(method.getModifiers()))
                         {
-                            throw new OOPInherentAmbiguity(interfaceClass, next, method);
+                            throw new OOPInherentAmbiguity(cl, next, method); // change c1 to interfaceClass
                         }
                     }
                 }
@@ -100,5 +112,57 @@ public class OOPMultipleControl
         {
             sourceFile.delete();
         }
+    }
+
+
+    @OOPMultipleInterface
+    interface C
+    {
+        @OOPMultipleMethod
+        public void getfive();
+    }
+
+
+    @OOPMultipleInterface
+    interface B1 extends C
+    {
+        @OOPMultipleMethod
+        public void getfive();
+    }
+
+    @OOPMultipleInterface
+    interface B2 extends C
+    {
+        @OOPMultipleMethod
+        public void getfive();
+    }
+
+    @OOPMultipleInterface
+    interface A extends B1, B2
+    {
+        @OOPMultipleMethod
+        public void getfive();
+    }
+
+    @OOPMultipleInterface
+    interface B extends B1
+    {
+        @OOPMultipleMethod
+        public void getfive();
+    }
+
+
+    public static void main(String[] args)
+    {
+        try
+        {
+            OOPMultipleControl.HasInherentAmbiguity(A.class);
+        } catch (Exception e)
+        {
+            System.out.println("Failed");
+            System.out.println(e);
+        }
+
+
     }
 }
