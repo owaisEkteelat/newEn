@@ -51,7 +51,7 @@ public class OOPMultipleControl
         queue.add(cl);
         types.add(cl);
         //BFS:
-        while (queue.isEmpty() == false)
+        while (!queue.isEmpty())
         {
             Class<?> curr = queue.poll();
             Class<?>[] supers = curr.getInterfaces();
@@ -61,7 +61,6 @@ public class OOPMultipleControl
                     break;
                 }
 
-                Annotation[] annotations = next.getClass().getDeclaredAnnotations();
                 if(!next.getClass().isAnnotationPresent(OOPMultipleInterface.class))
                 {
                     throw new OOPBadClass(interfaceClass);
@@ -84,7 +83,7 @@ public class OOPMultipleControl
                     }
                 }
 
-                if (types.contains(next) == false)
+                if (!types.contains(next))
                 {
                     types.add(next);
                     queue.add(next);
