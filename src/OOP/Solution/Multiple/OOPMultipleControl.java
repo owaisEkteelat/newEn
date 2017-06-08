@@ -66,13 +66,7 @@ public class OOPMultipleControl
                 {
                     throw new OOPBadClass(interfaceClass);
                 }
-//                for (Annotation annotation : annotations)
-//                {
-//                    if(annotation instanceof OOPMultipleInterface)
-//                    {
-//
-//                    }
-//                }
+
                 if (types.contains(next))
                 {
                     Method[] nextMethods = next.getDeclaredMethods();
