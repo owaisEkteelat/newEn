@@ -3,6 +3,7 @@ package OOP.Solution.Multiple;
 import OOP.Provided.Multiple.OOPBadClass;
 import OOP.Provided.Multiple.OOPInherentAmbiguity;
 import OOP.Provided.Multiple.OOPMultipleException;
+import com.sun.corba.se.impl.presentation.rmi.ExceptionHandlerImpl;
 import sun.reflect.annotation.AnnotationType;
 
 import java.io.File;
@@ -42,8 +43,10 @@ public class OOPMultipleControl
     }
 
     //TODO: add more of your code :
-
-
+    
+     //****************************************************************
+    //TODO: 1) check code duplicate in HasInherentAmbiguity functions.
+    //TODO: 2) check which inteface should pass to the exception.
     public static boolean HasInherentAmbiguity(Class<?> cl) throws OOPMultipleException
     {
         Queue<Class<?>> queue = new LinkedList<Class<?>>();
@@ -54,6 +57,15 @@ public class OOPMultipleControl
         if (!cl.isAnnotationPresent(OOPMultipleInterface.class))
         {
             throw new OOPBadClass(cl); // change c1 to interfaceClass
+        }
+
+        Method[] clMethods = cl.getDeclaredMethods();
+        for (Method method : clMethods)
+        {
+            if (!method.isAnnotationPresent(OOPMultipleMethod.class))
+            {
+                throw new OOPBadClass(cl); // change c1 to interfaceClass
+            }
         }
 
         //BFS:
@@ -138,7 +150,7 @@ public class OOPMultipleControl
     }
 
     @OOPMultipleInterface
-    interface A extends B1, B2
+    interface A extends B1,B2
     {
         @OOPMultipleMethod
         public void getfive();
@@ -157,10 +169,17 @@ public class OOPMultipleControl
         try
         {
             OOPMultipleControl.HasInherentAmbiguity(A.class);
-        } catch (Exception e)
+        } catch (OOPInherentAmbiguity e)
         {
-            System.out.println("Failed");
-            System.out.println(e);
+            System.out.println("Failed OOPInherentAmbiguity");
+//            System.out.println(e);
+        } catch (OOPBadClass e)
+        {
+            System.out.println("Failed OOPBadClass");
+//            System.out.println(e);
+        } catch ( Exception e ) {
+
+            System.out.println("Failed Built In exception");
         }
 
 
