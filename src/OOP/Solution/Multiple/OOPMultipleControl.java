@@ -1,19 +1,19 @@
 package OOP.Solution.Multiple;
 
 import OOP.Provided.Multiple.OOPBadClass;
+import OOP.Provided.Multiple.OOPCoincidentalAmbiguity;
 import OOP.Provided.Multiple.OOPInherentAmbiguity;
 import OOP.Provided.Multiple.OOPMultipleException;
 import com.sun.corba.se.impl.presentation.rmi.ExceptionHandlerImpl;
+import javafx.util.Pair;
 import sun.reflect.annotation.AnnotationType;
 
 import java.io.File;
+import java.lang.reflect.Array;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.annotation.Annotation;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Set;
+import java.util.*;
 
 
 public class OOPMultipleControl
@@ -33,21 +33,68 @@ public class OOPMultipleControl
     //TODO: fill in here :
     public void validateInheritanceGraph() throws OOPMultipleException
     {
+        HasInherentAmbiguity(interfaceClass);
 
     }
 
     //TODO: fill in here :
+    public static HashSet<Method> func(Class<?> cl) throws OOPMultipleException
+    {
+        Class<?>[] supers = cl.getInterfaces();
+        HashSet<Method> currMethods = new HashSet<>();
+        if (supers.length == 0)
+        {
+            currMethods.addAll(Arrays.asList(cl.getMethods()));
+            return currMethods;
+        }
+
+        for (Class<?> parent : supers)
+        {
+            HashSet<Method> parentMethods = new HashSet<>();
+            try{
+                parentMethods = func(parent);
+            }catch (OOPCoincidentalAmbiguity exc){
+
+            }
+            for ( Method method : parentMethods)
+            {
+                for(Method curMethod : currMethods){
+                    if(curMethod.getName() == method.getName()){
+                        HashSet<Pair<Class<?>, Method>> candidates = new HashSet<Pair<Class<?>, Method>>();
+                        candidates.add(new Pair<>(method.getClass(),method));
+                        candidates.add(new Pair<>(curMethod.getClass(),curMethod));
+                        throw new OOPCoincidentalAmbiguity(candidates);
+                    }
+                }
+            }
+            currMethods.addAll(parentMethods);
+        }
+
+
+
+        return currMethods;
+    }
+
     public Object invoke(String methodName, Object[] args) throws OOPMultipleException
     {
+
         return null;
     }
 
+    public static void HasCoincidentalAmbiguity(Class<?> cl) throws OOPMultipleException
+    {
+
+
+    }
+
+
     //TODO: add more of your code :
-    
-     //****************************************************************
+
+    //****************************************************************
     //TODO: 1) check code duplicate in HasInherentAmbiguity functions.
     //TODO: 2) check which inteface should pass to the exception.
-    public static boolean HasInherentAmbiguity(Class<?> cl) throws OOPMultipleException
+    //TODO: remember that you get a BFS code from internet.
+    public static void HasInherentAmbiguity(Class<?> cl) throws OOPMultipleException
     {
         Queue<Class<?>> queue = new LinkedList<Class<?>>();
         Set<Class<?>> types = new HashSet<>();
@@ -114,7 +161,7 @@ public class OOPMultipleControl
                 }
             }
         }
-        return true;
+
     }
 
     //TODO: DO NOT CHANGE !!!!!!
@@ -150,7 +197,7 @@ public class OOPMultipleControl
     }
 
     @OOPMultipleInterface
-    interface A extends B1,B2
+    interface A extends B1, B2
     {
         @OOPMultipleMethod
         public void getfive();
@@ -177,7 +224,8 @@ public class OOPMultipleControl
         {
             System.out.println("Failed OOPBadClass");
 //            System.out.println(e);
-        } catch ( Exception e ) {
+        } catch (Exception e)
+        {
 
             System.out.println("Failed Built In exception");
         }
