@@ -38,31 +38,33 @@ public class OOPMultipleControl
     }
 
     //TODO: fill in here :
-    public static HashSet<Method> func(Class<?> cl) throws OOPMultipleException
+    public static HashSet<MethodWrapper> func(Class<?> cl) throws OOPMultipleException
     {
         Class<?>[] supers = cl.getInterfaces();
-        HashSet<Method> currMethods = new HashSet<>();
+        HashSet<MethodWrapper> currMethods = new HashSet<>();
         if (supers.length == 0)
         {
-            currMethods.addAll(Arrays.asList(cl.getMethods()));
+            for (Method method : cl.getMethods())
+            {
+                currMethods.add(new MethodWrapper(method));
+            }
             return currMethods;
         }
 
         for (Class<?> parent : supers)
         {
-            HashSet<Method> parentMethods = new HashSet<>();
-            try{
-                parentMethods = func(parent);
-            }catch (OOPCoincidentalAmbiguity exc){
+            HashSet<MethodWrapper> parentMethods = new HashSet<>();
+            parentMethods = func(parent);
 
-            }
-            for ( Method method : parentMethods)
+            for (MethodWrapper methodWrapper : parentMethods)
             {
-                for(Method curMethod : currMethods){
-                    if(curMethod.getName() == method.getName()){
+                for (MethodWrapper curMethodWrapper : currMethods)
+                {
+                    if (curMethodWrapper.equals(methodWrapper))
+                    {
                         HashSet<Pair<Class<?>, Method>> candidates = new HashSet<Pair<Class<?>, Method>>();
-                        candidates.add(new Pair<>(method.getClass(),method));
-                        candidates.add(new Pair<>(curMethod.getClass(),curMethod));
+                        candidates.add(new Pair<>(methodWrapper.getMethod().getClass(), methodWrapper.getMethod()));
+                        candidates.add(new Pair<>(curMethodWrapper.getMethod().getClass(), curMethodWrapper.getMethod()));
                         throw new OOPCoincidentalAmbiguity(candidates);
                     }
                 }
@@ -70,8 +72,10 @@ public class OOPMultipleControl
             currMethods.addAll(parentMethods);
         }
 
-
-
+        for (Method method : cl.getMethods())
+        {
+            currMethods.add(new MethodWrapper(method));
+        }
         return currMethods;
     }
 
@@ -210,25 +214,59 @@ public class OOPMultipleControl
         public void getfive();
     }
 
+    @OOPMultipleInterface
+    interface H1
+    {
+        @OOPMultipleMethod
+        public void getfive();
+    }
+
+    @OOPMultipleInterface
+    interface H2
+    {
+        @OOPMultipleMethod
+        public void getfive();
+    }
+
+    @OOPMultipleInterface
+    interface I extends H1,H2
+    {
+
+    }
+
+
 
     public static void main(String[] args)
     {
+        System.out.println(B.class.getMethods()[0].getDeclaringClass());
+
         try
         {
-            OOPMultipleControl.HasInherentAmbiguity(A.class);
-        } catch (OOPInherentAmbiguity e)
+            func(I.class);
+        } catch (OOPCoincidentalAmbiguity e)
         {
-            System.out.println("Failed OOPInherentAmbiguity");
-//            System.out.println(e);
-        } catch (OOPBadClass e)
-        {
-            System.out.println("Failed OOPBadClass");
-//            System.out.println(e);
+            System.out.println("Failed OOPCoincidentalAmbiguity: " + e.getMessage());
         } catch (Exception e)
         {
-
             System.out.println("Failed Built In exception");
         }
+
+//        try
+//        {
+//            OOPMultipleControl.HasInherentAmbiguity(A.class);
+//        } catch (OOPInherentAmbiguity e)
+//        {
+//            System.out.println("Failed OOPInherentAmbiguity");
+////            System.out.println(e);
+//        } catch (OOPBadClass e)
+//        {
+//            System.out.println("Failed OOPBadClass");
+////            System.out.println(e);
+//        } catch (Exception e)
+//        {
+//
+//            System.out.println("Failed Built In exception");
+//        }
 
 
     }
