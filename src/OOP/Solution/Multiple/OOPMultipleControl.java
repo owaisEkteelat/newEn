@@ -51,6 +51,8 @@ public class OOPMultipleControl
             return currMethods;
         }
 
+        HashSet<Pair<Class<?>, Method>> candidates = new HashSet<Pair<Class<?>, Method>>();
+
         for (Class<?> parent : supers)
         {
             HashSet<MethodWrapper> parentMethods = new HashSet<>();
@@ -62,18 +64,28 @@ public class OOPMultipleControl
                 {
                     if (curMethodWrapper.equals(methodWrapper))
                     {
-                        HashSet<Pair<Class<?>, Method>> candidates = new HashSet<Pair<Class<?>, Method>>();
-                        candidates.add(new Pair<>(methodWrapper.getMethod().getClass(), methodWrapper.getMethod()));
-                        candidates.add(new Pair<>(curMethodWrapper.getMethod().getClass(), curMethodWrapper.getMethod()));
-                        throw new OOPCoincidentalAmbiguity(candidates);
+                        candidates.add(new Pair<>(methodWrapper.getMethod().getDeclaringClass(), methodWrapper.getMethod()));
+                        candidates.add(new Pair<>(curMethodWrapper.getMethod().getDeclaringClass(), curMethodWrapper.getMethod()));
+//                        System.out.println(methodWrapper.getMethod().getDeclaringClass().toString() + methodWrapper.getMethod().toString());
+//                        System.out.println(curMethodWrapper.getMethod().getDeclaringClass().toString() + curMethodWrapper.getMethod().toString());
                     }
                 }
             }
             currMethods.addAll(parentMethods);
         }
 
+        if (candidates.size() != 0)
+        {
+            throw new OOPCoincidentalAmbiguity(candidates);
+        }
+
         for (Method method : cl.getMethods())
         {
+            for (MethodWrapper methodWrapper : currMethods)
+            {
+                if(methodWrapper.equals(new MethodWrapper(method)))
+                currMethods.remove(methodWrapper);
+            }
             currMethods.add(new MethodWrapper(method));
         }
         return currMethods;
@@ -215,30 +227,67 @@ public class OOPMultipleControl
     }
 
     @OOPMultipleInterface
-    interface H1
+    interface F1
     {
         @OOPMultipleMethod
         public void getfive();
     }
 
     @OOPMultipleInterface
-    interface H2
+    interface G1 extends F1
     {
         @OOPMultipleMethod
         public void getfive();
     }
 
     @OOPMultipleInterface
-    interface I extends H1,H2
+    interface H1 extends G1
+    {
+//        @OOPMultipleMethod
+//        public void getfive();
+    }
+
+    @OOPMultipleInterface
+    interface F2
+    {
+        @OOPMultipleMethod
+        public void getfive();
+    }
+
+    @OOPMultipleInterface
+    interface G2 extends F2
+    {
+//        @OOPMultipleMethod
+//        public void getfive();
+    }
+
+    @OOPMultipleInterface
+    interface H2 extends G2
+    {
+//        @OOPMultipleMethod
+//        public void getfive();
+    }
+
+    @OOPMultipleInterface
+    interface H3
+    {
+        @OOPMultipleMethod
+        public void getfive();
+    }
+
+    @OOPMultipleInterface
+    interface I extends H1, H2,H3
     {
 
     }
-
 
 
     public static void main(String[] args)
     {
         System.out.println(B.class.getMethods()[0].getDeclaringClass());
+
+        System.out.println((new MethodWrapper(F1.class.getMethods()[0])).equals((new MethodWrapper(G1.class.getMethods()[0]))));
+
 
         try
         {
