@@ -6,6 +6,7 @@ import OOP.Provided.Multiple.OOPInherentAmbiguity;
 import OOP.Provided.Multiple.OOPMultipleException;
 import com.sun.corba.se.impl.presentation.rmi.ExceptionHandlerImpl;
 import javafx.util.Pair;
+import sun.reflect.Reflection;
 import sun.reflect.annotation.AnnotationType;
 
 import java.io.File;
@@ -34,7 +35,6 @@ public class OOPMultipleControl
     public void validateInheritanceGraph() throws OOPMultipleException
     {
         HasInherentAmbiguity(interfaceClass);
-
     }
 
     //TODO: fill in here :
@@ -83,8 +83,8 @@ public class OOPMultipleControl
         {
             for (MethodWrapper methodWrapper : currMethods)
             {
-                if(methodWrapper.equals(new MethodWrapper(method)))
-                currMethods.remove(methodWrapper);
+                if (methodWrapper.equals(new MethodWrapper(method)))
+                    currMethods.remove(methodWrapper);
             }
             currMethods.add(new MethodWrapper(method));
         }
@@ -94,15 +94,21 @@ public class OOPMultipleControl
     public Object invoke(String methodName, Object[] args) throws OOPMultipleException
     {
 
+        HashSet<MethodWrapper> funcsSet = func(interfaceClass);
+
+        for (MethodWrapper methodWrapper : funcsSet)
+        {
+            if (methodWrapper.getMethod().getName() == methodName)
+            {
+                try{
+                    methodWrapper.getMethod().invoke(this,args);
+                }catch (Exception e){
+                    System.out.println(e.getMessage());
+                }
+            }
+        }
         return null;
     }
-
-    public static void HasCoincidentalAmbiguity(Class<?> cl) throws OOPMultipleException
-    {
-
-
-    }
-
 
     //TODO: add more of your code :
 
@@ -276,7 +282,7 @@ public class OOPMultipleControl
     }
 
     @OOPMultipleInterface
-    interface I extends H1, H2,H3
+    interface I extends H1, H2, H3
     {
 
     }
