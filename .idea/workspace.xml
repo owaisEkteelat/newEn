@@ -31,12 +31,22 @@
       <file leaf-file-name="OOPMultipleControl.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/OOP/Solution/Multiple/OOPMultipleControl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="110">
-              <caret line="85" column="68" lean-forward="true" selection-start-line="85" selection-start-column="68" selection-end-line="85" selection-end-column="68" />
+            <state relative-caret-position="238">
+              <caret line="130" column="16" lean-forward="false" selection-start-line="130" selection-start-column="16" selection-end-line="130" selection-end-column="16" />
               <folding>
                 <element signature="e#1596#1620#0" expanded="true" />
-                <element signature="e#4175#4185#0" expanded="true" />
+                <element signature="e#4741#4751#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Class.java" pinned="false" current-in-tab="false">
+        <entry file="jar://C:/Program Files/Java/jdk1.8.0_131/src.zip!/java/lang/Class.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="429">
+              <caret line="1488" column="22" lean-forward="false" selection-start-line="1488" selection-start-column="22" selection-end-line="1488" selection-end-column="22" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -142,7 +152,20 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="612">
               <caret line="66" column="4" lean-forward="false" selection-start-line="66" selection-start-column="4" selection-end-line="76" selection-end-column="5" />
-              <folding />
+              <folding>
+                <element signature="e#0#27434#0" expanded="false" />
+                <element signature="imports" expanded="false" />
+                <element signature="e#7943#7944#0" expanded="false" />
+                <element signature="e#7990#7991#0" expanded="false" />
+                <element signature="e#15712#15713#0" expanded="false" />
+                <element signature="e#15760#15761#0" expanded="false" />
+                <element signature="e#18168#18169#0" expanded="false" />
+                <element signature="e#18231#18232#0" expanded="false" />
+                <element signature="e#18598#18599#0" expanded="false" />
+                <element signature="e#18657#18658#0" expanded="false" />
+                <element signature="e#21648#21649#0" expanded="false" />
+                <element signature="e#21718#21719#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -773,7 +796,7 @@
       <workItem from="1496923389977" duration="3155000" />
       <workItem from="1497178468426" duration="6178000" />
       <workItem from="1497275977674" duration="1758000" />
-      <workItem from="1497350634187" duration="3201000" />
+      <workItem from="1497350634187" duration="5927000" />
     </task>
     <task id="LOCAL-00001" summary="synced">
       <created>1496919095921</created>
@@ -824,11 +847,18 @@
       <option name="project" value="LOCAL" />
       <updated>1497352684178</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Invoke Pre-testing!">
+      <created>1497353899415</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1497353899415</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="28194000" />
+    <option name="totallyTimeSpent" value="30920000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -884,7 +914,8 @@
     <MESSAGE value="synced" />
     <MESSAGE value="MethodWrapper Added!" />
     <MESSAGE value="Coincidental Ambiguity checked!" />
-    <option name="LAST_COMMIT_MESSAGE" value="Coincidental Ambiguity checked!" />
+    <MESSAGE value="Invoke Pre-testing!" />
+    <option name="LAST_COMMIT_MESSAGE" value="Invoke Pre-testing!" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -897,14 +928,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/OOP/Provided/Multiple/OOPInherentAmbiguity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="27" column="0" lean-forward="false" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/OOP/Tests/Trait/Example/Example.java" />
     <entry file="file://$PROJECT_DIR$/src/OOP/Solution/test1.java" />
     <entry file="file://$PROJECT_DIR$/src/OOP/Solution/Multiple/OOPMultipleInterface.java">
@@ -940,7 +963,7 @@
           <caret line="61" column="17" lean-forward="false" selection-start-line="61" selection-start-column="17" selection-end-line="61" selection-end-column="17" />
           <folding>
             <element signature="e#1596#1620#0" expanded="true" />
-            <element signature="e#4175#4185#0" expanded="true" />
+            <element signature="e#4741#4751#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -951,7 +974,7 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#1596#1620#0" expanded="true" />
-            <element signature="e#4175#4185#0" expanded="true" />
+            <element signature="e#4741#4751#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -988,7 +1011,7 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#1596#1620#0" expanded="true" />
-            <element signature="e#4175#4185#0" expanded="true" />
+            <element signature="e#4741#4751#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1025,7 +1048,7 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#1596#1620#0" expanded="true" />
-            <element signature="e#4175#4185#0" expanded="true" />
+            <element signature="e#4741#4751#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1078,6 +1101,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="189">
           <caret line="1653" column="0" lean-forward="false" selection-start-line="1653" selection-start-column="0" selection-end-line="1653" selection-end-column="0" />
+          <folding>
+            <element signature="e#62860#62861#0" expanded="false" />
+            <element signature="e#62916#62917#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1149,7 +1176,20 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="612">
           <caret line="66" column="4" lean-forward="false" selection-start-line="66" selection-start-column="4" selection-end-line="76" selection-end-column="5" />
-          <folding />
+          <folding>
+            <element signature="e#0#27434#0" expanded="false" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#7943#7944#0" expanded="false" />
+            <element signature="e#7990#7991#0" expanded="false" />
+            <element signature="e#15712#15713#0" expanded="false" />
+            <element signature="e#15760#15761#0" expanded="false" />
+            <element signature="e#18168#18169#0" expanded="false" />
+            <element signature="e#18231#18232#0" expanded="false" />
+            <element signature="e#18598#18599#0" expanded="false" />
+            <element signature="e#18657#18658#0" expanded="false" />
+            <element signature="e#21648#21649#0" expanded="false" />
+            <element signature="e#21718#21719#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1257,13 +1297,21 @@
         </state>
       </provider>
     </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_131/src.zip!/java/lang/Class.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="429">
+          <caret line="1488" column="22" lean-forward="false" selection-start-line="1488" selection-start-column="22" selection-end-line="1488" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/OOP/Solution/Multiple/OOPMultipleControl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="85" column="68" lean-forward="true" selection-start-line="85" selection-start-column="68" selection-end-line="85" selection-end-column="68" />
+        <state relative-caret-position="238">
+          <caret line="130" column="16" lean-forward="false" selection-start-line="130" selection-start-column="16" selection-end-line="130" selection-end-column="16" />
           <folding>
             <element signature="e#1596#1620#0" expanded="true" />
-            <element signature="e#4175#4185#0" expanded="true" />
+            <element signature="e#4741#4751#0" expanded="true" />
           </folding>
         </state>
       </provider>

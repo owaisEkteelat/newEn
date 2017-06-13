@@ -100,14 +100,39 @@ public class OOPMultipleControl
         {
             if (methodWrapper.getMethod().getName() == methodName)
             {
-                try{
-                    methodWrapper.getMethod().invoke(this,args);
-                }catch (Exception e){
+                try
+                {
+                    Object toReturn = methodWrapper.getMethod().invoke(this, args);
+                    return toReturn;
+                } catch (Exception e)
+                {
                     System.out.println(e.getMessage());
                 }
             }
         }
         return null;
+    }
+
+    private static int GetArgsDiffirence(Object[] args1, Object[] args2)
+    {
+        int counter = 0;
+
+        if (args1.length != args2.length)
+        {
+            return -1;
+        }
+
+        for (int i = 0; i < args1.length; i++)
+        {
+            Class<?> type1 = args1[i].getClass();
+            Class<?> type2 = args2[i].getClass();
+            if (!(type1.equals(type2)))
+            {
+
+            }
+        }
+
+        return counter;
     }
 
     //TODO: add more of your code :
@@ -283,6 +308,12 @@ public class OOPMultipleControl
 
     @OOPMultipleInterface
     interface I extends H1, H2, H3
+    {
+
+    }
+
+    @OOPMultipleInterface
+    interface I2 extends H1
     {
 
     }
