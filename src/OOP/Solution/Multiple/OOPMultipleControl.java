@@ -92,25 +92,83 @@ public class OOPMultipleControl
         return currMethods;
     }
 
+    private static int GetArgsDiffirence(Object[] args1, Class<?>[] args2)
+    {
+
+        HashMap<Class<?>, Class<?>> PrimMap = new HashMap<Class<?>, Class<?>>();
+        PrimMap.put(boolean.class, Boolean.class);
+        PrimMap.put(byte.class, Byte.class);
+        PrimMap.put(char.class, Character.class);
+        PrimMap.put(double.class, Double.class);
+        PrimMap.put(float.class, Float.class);
+        PrimMap.put(int.class, Integer.class);
+        PrimMap.put(long.class, Long.class);
+        PrimMap.put(short.class, Short.class);
+        PrimMap.put(void.class, Void.class);
+
+        int counter = 0;
+
+        if (args1.length != args2.length)
+        {
+            return -1;
+        }
+
+        for (int i = 0; i < args1.length; i++)
+        {
+            if (args2[i].isPrimitive() ){
+                args2[i] = PrimMap.get(args2[i]);
+            }
+
+            Class<?> type1 = args1[i].getClass();
+
+            if (args2[i].isInstance(args1[i]))
+            {
+                if (type1 != args2[i])
+                {
+                    counter++;
+                }
+            }
+            else{
+                return -1;
+            }
+
+        }
+
+        return counter;
+    }
+
     public Object invoke(String methodName, Object[] args) throws OOPMultipleException
     {
 
         HashSet<MethodWrapper> funcsSet = func(interfaceClass);
+        MethodWrapper minimumCastMethod = null;
+        int minCast = Integer.MAX_VALUE;
 
         for (MethodWrapper methodWrapper : funcsSet)
         {
             if (methodWrapper.getMethod().getName() == methodName)
             {
-                try
+                int curCastInt = GetArgsDiffirence(args, methodWrapper.getMethod().getParameterTypes());
+                if (curCastInt != -1 && curCastInt < minCast)
                 {
-                    Object toReturn = methodWrapper.getMethod().invoke(this, args);
-                    return toReturn;
-                } catch (Exception e)
-                {
-                    System.out.println(e.getMessage());
+                    minimumCastMethod = methodWrapper;
+                    minCast = curCastInt;
                 }
             }
         }
+
+        if (minimumCastMethod != null)
+        {
+            try
+            {
+                Object toReturn = getClassMethod(minimumCastMethod.getMethod()).invoke(this, args);
+                return toReturn;
+            } catch (Exception e)
+            {
+                System.out.println(e.getMessage());
+            }
+        }
+
         return null;
     }
 
@@ -146,28 +204,6 @@ public class OOPMultipleControl
             }
         }
         throw new OOPDebuggingException(" Method " + InterfaceMethod.getName() + " cannot found in " + className + " which(the class) founded match " + interfaceName);
-    }
-
-    private static int GetArgsDiffirence(Object[] args1, Object[] args2)
-    {
-        int counter = 0;
-
-        if (args1.length != args2.length)
-        {
-            return -1;
-        }
-
-        for (int i = 0; i < args1.length; i++)
-        {
-            Class<?> type1 = args1[i].getClass();
-            Class<?> type2 = args2[i].getClass();
-            if (!(type1.equals(type2)))
-            {
-
-            }
-        }
-
-        return counter;
     }
 
     //TODO: add more of your code :
