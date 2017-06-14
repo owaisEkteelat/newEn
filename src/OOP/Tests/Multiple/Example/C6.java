@@ -8,7 +8,7 @@ import OOP.Provided.Multiple.OOPMultipleException;
 public class C6 implements  I6
 {
     @Override
-    public void I6Func() throws OOPMultipleException
+    public void I6Func(int x) throws OOPMultipleException
     {
         System.out.print("I6Func implement");
     }

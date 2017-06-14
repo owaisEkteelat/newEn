@@ -94,7 +94,14 @@ public class OOPMultipleControl
 
     private static int GetArgsDiffirence(Object[] args1, Class<?>[] args2)
     {
-
+        if(args1 == null || args2 == null){
+            if(args1 == null && args2 == null){
+                return 0;
+            }
+            else{
+                return -1;
+            }
+        }
         HashMap<Class<?>, Class<?>> PrimMap = new HashMap<Class<?>, Class<?>>();
         PrimMap.put(boolean.class, Boolean.class);
         PrimMap.put(byte.class, Byte.class);

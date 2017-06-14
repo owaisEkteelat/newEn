@@ -11,5 +11,5 @@ import OOP.Solution.Multiple.OOPMultipleMethod;
 public interface I6
 {
     @OOPMultipleMethod
-    void I6Func() throws OOPMultipleException;;
+    void I6Func(int x) throws OOPMultipleException;;
 }
