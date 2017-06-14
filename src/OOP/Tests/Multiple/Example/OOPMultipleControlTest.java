@@ -45,8 +45,20 @@ public class OOPMultipleControlTest extends TestCase
         Method methodInI5 = I5.class.getMethods()[0];
         Method methodInC5 =null;
         methodInC5 = OOPMultipleControl.getClassMethod(I5.class.getMethods()[0]);
+        String excpectedMethodDeclaration = "public void OOP.Tests.Multiple.Example.C5.myFunc() throws OOP.Provided.Multiple.OOPMultipleException";
+        Assert.assertEquals(excpectedMethodDeclaration,methodInC5.toString());
 
+        Method methodInI4 = I4.class.getMethods()[0];
+        Method methodInC4 =null;
+        methodInC4 = OOPMultipleControl.getClassMethod(I4.class.getMethods()[0]);
+        excpectedMethodDeclaration = "public void OOP.Tests.Multiple.Example.C4.myFunc() throws OOP.Provided.Multiple.OOPMultipleException";
+        Assert.assertEquals(excpectedMethodDeclaration,methodInC4.toString());
 
+        Method methodInI6 = I6.class.getMethods()[0];
+        Method methodInC6 =null;
+        methodInC6 = OOPMultipleControl.getClassMethod(I6.class.getMethods()[0]);
+        excpectedMethodDeclaration = "public void OOP.Tests.Multiple.Example.C6.I6Func() throws OOP.Provided.Multiple.OOPMultipleException";
+        Assert.assertEquals(excpectedMethodDeclaration,methodInC6.toString());
     }
 
     public void testHasInherentAmbiguity() throws Exception
