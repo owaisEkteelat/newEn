@@ -4,6 +4,8 @@ import OOP.Provided.Multiple.OOPBadClass;
 import OOP.Provided.Multiple.OOPCoincidentalAmbiguity;
 import OOP.Provided.Multiple.OOPInherentAmbiguity;
 import OOP.Provided.Multiple.OOPMultipleException;
+import OOP.Solution.OOPDebuggingException;
+import com.sun.beans.finder.ClassFinder;
 import com.sun.corba.se.impl.presentation.rmi.ExceptionHandlerImpl;
 import javafx.util.Pair;
 import sun.reflect.Reflection;
@@ -111,6 +113,40 @@ public class OOPMultipleControl
             }
         }
         return null;
+    }
+
+    public  static  String getClassName(String interfaceName)
+    {
+        int indexOfLastPoint = interfaceName.lastIndexOf(".");
+        String className = interfaceName.substring(0,indexOfLastPoint+1)+'C'+interfaceName.substring(indexOfLastPoint+2);
+
+        return className;
+    }
+
+
+    public static Method getClassMethod (Method InterfaceMethod) throws OOPMultipleException
+    {
+        String interfaceName = InterfaceMethod.getDeclaringClass().getName();
+        String className = OOPMultipleControl.getClassName(interfaceName);
+        Class<?> matchesClass = null;
+        try
+        {
+            matchesClass = ClassFinder.findClass(className);
+        }
+        catch (Exception e)
+        {
+            throw  new OOPDebuggingException("Problem in finding matches class to " + interfaceName );
+        }
+
+        for ( Method currentMethod : matchesClass.getMethods() ) {
+            if (currentMethod.getName().equals(className) )
+            {
+                return currentMethod;
+            }
+
+        }
+        throw  new OOPDebuggingException(" Method " + InterfaceMethod.getName() + " cannot found in " +
+                className + "which (the class) founded match " + interfaceName);
     }
 
     private static int GetArgsDiffirence(Object[] args1, Object[] args2)
