@@ -85,8 +85,7 @@ public class OOPMultipleControl
         {
             for (MethodWrapper methodWrapper : currMethods)
             {
-                if (methodWrapper.equals(new MethodWrapper(method)))
-                    currMethods.remove(methodWrapper);
+                if (methodWrapper.equals(new MethodWrapper(method))) currMethods.remove(methodWrapper);
             }
             currMethods.add(new MethodWrapper(method));
         }
@@ -115,38 +114,38 @@ public class OOPMultipleControl
         return null;
     }
 
-    public  static  String getClassName(String interfaceName)
+    public static String getClassName(String interfaceName)
     {
         int indexOfLastPoint = interfaceName.lastIndexOf(".");
-        String className = interfaceName.substring(0,indexOfLastPoint+1)+'C'+interfaceName.substring(indexOfLastPoint+2);
-
+        String className = interfaceName.substring(0, indexOfLastPoint + 1) + 'C' + interfaceName.substring(indexOfLastPoint + 2);
         return className;
     }
 
-
-    public static Method getClassMethod (Method InterfaceMethod) throws OOPMultipleException
+    public static Method getClassMethod(Method InterfaceMethod) throws OOPMultipleException
     {
         String interfaceName = InterfaceMethod.getDeclaringClass().getName();
         String className = OOPMultipleControl.getClassName(interfaceName);
+        MethodWrapper paramMethodWrapper = new MethodWrapper(InterfaceMethod);
+
         Class<?> matchesClass = null;
         try
         {
             matchesClass = ClassFinder.findClass(className);
-        }
-        catch (Exception e)
+        } catch (Exception e)
         {
-            throw  new OOPDebuggingException("Problem in finding matches class to " + interfaceName );
+            throw new OOPDebuggingException("Problem in finding matches class to " + interfaceName);
         }
 
-        for ( Method currentMethod : matchesClass.getMethods() ) {
-            if (currentMethod.getName().equals(className) )
+        for (Method currentMethod : matchesClass.getMethods())
+        {
+            MethodWrapper currentMethodWrapper = new MethodWrapper(currentMethod);
+            if (currentMethodWrapper.equals(paramMethodWrapper))
             {
+               // System.out.println(currentMethod);
                 return currentMethod;
             }
-
         }
-        throw  new OOPDebuggingException(" Method " + InterfaceMethod.getName() + " cannot found in " +
-                className + "which (the class) founded match " + interfaceName);
+        throw new OOPDebuggingException(" Method " + InterfaceMethod.getName() + " cannot found in " + className + " which(the class) founded match " + interfaceName);
     }
 
     private static int GetArgsDiffirence(Object[] args1, Object[] args2)

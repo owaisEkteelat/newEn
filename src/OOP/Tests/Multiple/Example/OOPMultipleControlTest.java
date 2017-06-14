@@ -42,12 +42,10 @@ public class OOPMultipleControlTest extends TestCase
 
     public void testGetClassMethod() throws Exception
     {
-        /*
-        System.out.println(ClassFinder.findClass("OOP.Tests.Multiple.Example.C5").);
-        System.out.println(I5.class.getMethods()[0].getName());
-        System.out.println(I4.class.getMethods()[0].getName());
-*/
-        OOPMultipleControl.getClassMethod(I5.class.getMethods()[0]);
+        Method methodInI5 = I5.class.getMethods()[0];
+        Method methodInC5 =null;
+        methodInC5 = OOPMultipleControl.getClassMethod(I5.class.getMethods()[0]);
+
 
     }
 
