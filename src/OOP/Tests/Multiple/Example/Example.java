@@ -12,7 +12,8 @@ public class Example {
     @Test
     public void main() {
         try {
-            I3 obj = (I3) generator.generateMultipleClass(I3.class);
+            I3 obj = (I3)
+                    generator.generateMultipleClass(I3.class);
             Assert.assertEquals("C1 : f", obj.f());
             obj.g();
 

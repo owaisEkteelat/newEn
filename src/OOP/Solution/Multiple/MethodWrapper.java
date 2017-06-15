@@ -32,6 +32,18 @@ public class MethodWrapper
         return false;
     }
 
+    public boolean equalsWithDiffer(Object obj,int diff1,int diff2) {
+        if (obj != null && obj instanceof MethodWrapper) {
+            MethodWrapper other = (MethodWrapper)obj;
+            if (method.getName() == other.getMethod().getName()) {
+                if (!((method.getReturnType()).equals(other.getMethod().getReturnType())))
+                    return false;
+                return diff1!=-1 && diff2 != -1 && diff1 == diff2;
+            }
+        }
+        return false;
+    }
+
     boolean equalParamTypes(Class<?>[] params1, Class<?>[] params2) {
         /* Avoid unnecessary cloning */
         if (params1.length == params2.length) {

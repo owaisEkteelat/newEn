@@ -40,7 +40,7 @@ public class OOPMultipleControl
     }
 
     //TODO: fill in here :
-    public static HashSet<MethodWrapper> func(Class<?> cl) throws OOPMultipleException
+    public static HashSet<MethodWrapper> func(Class<?> cl,Object[] args) throws OOPMultipleException
     {
         Class<?>[] supers = cl.getInterfaces();
         HashSet<MethodWrapper> currMethods = new HashSet<>();
@@ -54,20 +54,31 @@ public class OOPMultipleControl
         }
 
         HashSet<Pair<Class<?>, Method>> candidates = new HashSet<Pair<Class<?>, Method>>();
+        int expDiffer = Integer.MAX_VALUE;
 
         for (Class<?> parent : supers)
         {
             HashSet<MethodWrapper> parentMethods = new HashSet<>();
-            parentMethods = func(parent);
+            parentMethods = func(parent,args);
 
             for (MethodWrapper methodWrapper : parentMethods)
             {
                 for (MethodWrapper curMethodWrapper : currMethods)
                 {
-                    if (curMethodWrapper.equals(methodWrapper))
+                    int firstDiffir1 = GetArgsDiffirence(args,methodWrapper.getMethod().getParameterTypes());
+                    int firstDiffir2 = GetArgsDiffirence(args,curMethodWrapper.getMethod().getParameterTypes());
+
+                    if (curMethodWrapper.equals(methodWrapper) || curMethodWrapper.equalsWithDiffer(methodWrapper,firstDiffir1, firstDiffir2))
                     {
                         candidates.add(new Pair<>(methodWrapper.getMethod().getDeclaringClass(), methodWrapper.getMethod()));
                         candidates.add(new Pair<>(curMethodWrapper.getMethod().getDeclaringClass(), curMethodWrapper.getMethod()));
+                        if(curMethodWrapper.equalsWithDiffer(methodWrapper,firstDiffir1, firstDiffir2)){
+                            expDiffer = firstDiffir1;
+                        }
+//                        for (Object arg:args)
+//                        {
+//                            System.out.println(arg.toString());
+//                        }
 //                        System.out.println(methodWrapper.getMethod().getDeclaringClass().toString() + methodWrapper.getMethod().toString());
 //                        System.out.println(curMethodWrapper.getMethod().getDeclaringClass().toString() + curMethodWrapper.getMethod().toString());
                     }
@@ -81,9 +92,19 @@ public class OOPMultipleControl
             throw new OOPCoincidentalAmbiguity(candidates);
         }
 
+        HashSet<MethodWrapper> toReturnMethods = new HashSet<>();
+        for (MethodWrapper methodWrapper : currMethods)
+        {
+            toReturnMethods.add(methodWrapper);
+        }
+
         for (Method method : cl.getMethods())
         {
-            for (MethodWrapper methodWrapper : currMethods)
+            if (method.getDeclaringClass() != cl)
+            {
+                continue;
+            }
+            for (MethodWrapper methodWrapper : toReturnMethods)
             {
                 if (methodWrapper.equals(new MethodWrapper(method))) currMethods.remove(methodWrapper);
             }
@@ -94,11 +115,13 @@ public class OOPMultipleControl
 
     private static int GetArgsDiffirence(Object[] args1, Class<?>[] args2)
     {
-        if(args1 == null || args2 == null){
-            if(args1 == null && args2 == null){
+        if (args1 == null || args2.length == 0)
+        {
+            if (args1 == null && args2.length == 0)
+            {
                 return 0;
-            }
-            else{
+            } else
+            {
                 return -1;
             }
         }
@@ -122,7 +145,8 @@ public class OOPMultipleControl
 
         for (int i = 0; i < args1.length; i++)
         {
-            if (args2[i].isPrimitive() ){
+            if (args2[i].isPrimitive())
+            {
                 args2[i] = PrimMap.get(args2[i]);
             }
 
@@ -134,8 +158,8 @@ public class OOPMultipleControl
                 {
                     counter++;
                 }
-            }
-            else{
+            } else
+            {
                 return -1;
             }
 
@@ -147,7 +171,7 @@ public class OOPMultipleControl
     public Object invoke(String methodName, Object[] args) throws OOPMultipleException
     {
 
-        HashSet<MethodWrapper> funcsSet = func(interfaceClass);
+        HashSet<MethodWrapper> funcsSet = func(interfaceClass,args);
         MethodWrapper minimumCastMethod = null;
         int minCast = Integer.MAX_VALUE;
 
@@ -156,10 +180,20 @@ public class OOPMultipleControl
             if (methodWrapper.getMethod().getName() == methodName)
             {
                 int curCastInt = GetArgsDiffirence(args, methodWrapper.getMethod().getParameterTypes());
-                if (curCastInt != -1 && curCastInt < minCast)
+                if (curCastInt != -1 && curCastInt <= minCast)
                 {
-                    minimumCastMethod = methodWrapper;
-                    minCast = curCastInt;
+                    if (curCastInt == minCast)
+                    {
+                        if (minimumCastMethod.getMethod().getDeclaringClass().isAssignableFrom(methodWrapper.getMethod().getDeclaringClass()))
+                        {
+                            minimumCastMethod = methodWrapper;
+                            minCast = curCastInt;
+                        }
+                    } else
+                    {
+                        minimumCastMethod = methodWrapper;
+                        minCast = curCastInt;
+                    }
                 }
             }
         }
@@ -168,7 +202,9 @@ public class OOPMultipleControl
         {
             try
             {
-                Object toReturn = getClassMethod(minimumCastMethod.getMethod()).invoke(this, args);
+                Method classMethod = getClassMethod(minimumCastMethod.getMethod());
+                Class<?> methodClass = getClassMethod(minimumCastMethod.getMethod()).getDeclaringClass();
+                Object toReturn = classMethod.invoke(methodClass.newInstance(), args);
                 return toReturn;
             } catch (Exception e)
             {
@@ -206,7 +242,7 @@ public class OOPMultipleControl
             MethodWrapper currentMethodWrapper = new MethodWrapper(currentMethod);
             if (currentMethodWrapper.equals(paramMethodWrapper))
             {
-               // System.out.println(currentMethod);
+                // System.out.println(currentMethod);
                 return currentMethod;
             }
         }
@@ -226,19 +262,20 @@ public class OOPMultipleControl
         queue.add(cl);
         types.add(cl);
 
-        if (!cl.isAnnotationPresent(OOPMultipleInterface.class))
-        {
-            throw new OOPBadClass(cl); // change c1 to interfaceClass
-        }
+//        As Written in FAQ
+//        if (!cl.isAnnotationPresent(OOPMultipleInterface.class))
+//        {
+//            throw new OOPBadClass(cl); // change c1 to interfaceClass
+//        }
 
-        Method[] clMethods = cl.getDeclaredMethods();
-        for (Method method : clMethods)
-        {
-            if (!method.isAnnotationPresent(OOPMultipleMethod.class))
-            {
-                throw new OOPBadClass(cl); // change c1 to interfaceClass
-            }
-        }
+//        Method[] clMethods = cl.getDeclaredMethods();
+//        for (Method method : clMethods)
+//        {
+//            if (!method.isAnnotationPresent(OOPMultipleMethod.class))
+//            {
+//                throw new OOPBadClass(method); // change c1 to interfaceClass
+//            }
+//        }
 
         //BFS:
         while (!queue.isEmpty())
@@ -256,7 +293,7 @@ public class OOPMultipleControl
 
                 if (!next.isAnnotationPresent(OOPMultipleInterface.class))
                 {
-                    throw new OOPBadClass(cl); // change c1 to interfaceClass
+                    throw new OOPBadClass(next); // change c1 to interfaceClass
                 }
 
                 Method[] nextMethods = next.getDeclaredMethods();
@@ -264,7 +301,7 @@ public class OOPMultipleControl
                 {
                     if (!method.isAnnotationPresent(OOPMultipleMethod.class))
                     {
-                        throw new OOPBadClass(cl); // change c1 to interfaceClass
+                        throw new OOPBadClass(method); // change c1 to interfaceClass
                     }
                 }
 
@@ -399,21 +436,22 @@ public class OOPMultipleControl
 
     public static void main(String[] args)
     {
-        System.out.println(B.class.getMethods()[0].getDeclaringClass());
 
-        System.out.println((new MethodWrapper(F1.class.getMethods()[0])).equals((new MethodWrapper(G1.class.getMethods()[0]))));
-
-
-        try
-        {
-            func(I.class);
-        } catch (OOPCoincidentalAmbiguity e)
-        {
-            System.out.println("Failed OOPCoincidentalAmbiguity: " + e.getMessage());
-        } catch (Exception e)
-        {
-            System.out.println("Failed Built In exception");
-        }
+//        System.out.println(B.class.getMethods()[0].getDeclaringClass());
+//
+//        System.out.println((new MethodWrapper(F1.class.getMethods()[0])).equals((new MethodWrapper(G1.class.getMethods()[0]))));
+//
+//
+//        try
+//        {
+//            func(I.class);
+//        } catch (OOPCoincidentalAmbiguity e)
+//        {
+//            System.out.println("Failed OOPCoincidentalAmbiguity: " + e.getMessage());
+//        } catch (Exception e)
+//        {
+//            System.out.println("Failed Built In exception");
+//        }
 
 //        try
 //        {
@@ -434,4 +472,5 @@ public class OOPMultipleControl
 
 
     }
+
 }
