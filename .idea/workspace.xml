@@ -2,83 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="453e033d-f2bc-423a-b138-b634c8cc0fbe" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/newEn/OOP/Tests/Multiple/Example/A.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/newEn/OOP/Tests/Multiple/Example/B.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/newEn/OOP/Tests/Multiple/Example/C.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/newEn/OOP/Tests/Multiple/Example/C1A.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/newEn/OOP/Tests/Multiple/Example/C1B.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/newEn/OOP/Tests/Multiple/Example/C2A.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/newEn/OOP/Tests/Multiple/Example/C2B.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/newEn/OOP/Tests/Multiple/Example/C2C.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/newEn/OOP/Tests/Multiple/Example/C2D.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/newEn/OOP/Tests/Multiple/Example/C2E.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/newEn/OOP/Tests/Multiple/Example/C2F.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/newEn/OOP/Tests/Multiple/Example/C2G.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/newEn/OOP/Tests/Multiple/Example/C2H.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/newEn/OOP/Tests/Multiple/Example/C2I.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/newEn/OOP/Tests/Multiple/Example/C2J.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/newEn/OOP/Tests/Multiple/Example/C2K.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/newEn/OOP/Tests/Multiple/Example/C2L.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/newEn/OOP/Tests/Multiple/Example/C2M.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/newEn/OOP/Tests/Multiple/Example/C3A.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/newEn/OOP/Tests/Multiple/Example/C3B.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/newEn/OOP/Tests/Multiple/Example/C3C.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/newEn/OOP/Tests/Multiple/Example/C3D.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/newEn/OOP/Tests/Multiple/Example/C3E.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/newEn/OOP/Tests/Multiple/Example/C3F.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/newEn/OOP/Tests/Multiple/Example/C3G.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/newEn/OOP/Tests/Multiple/Example/C3H.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/newEn/OOP/Tests/Multiple/Example/C3J.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/newEn/OOP/Tests/Multiple/Example/C4A.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/newEn/OOP/Tests/Multiple/Example/C4B.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/newEn/OOP/Tests/Multiple/Example/C4C.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/newEn/OOP/Tests/Multiple/Example/C4D.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/newEn/OOP/Tests/Multiple/Example/C4E.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/newEn/OOP/Tests/Multiple/Example/C4F.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/newEn/OOP/Tests/Multiple/Example/C4G.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/newEn/OOP/Tests/Multiple/Example/C4H.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/newEn/OOP/Tests/Multiple/Example/C4J.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/newEn/OOP/Tests/Multiple/Example/C4K.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/newEn/OOP/Tests/Multiple/Example/C4L.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/newEn/OOP/Tests/Multiple/Example/C4M.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/newEn/OOP/Tests/Multiple/Example/C4N.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/newEn/OOP/Tests/Multiple/Example/C5A.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/newEn/OOP/Tests/Multiple/Example/C5B.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/newEn/OOP/Tests/Multiple/Example/C5C.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/newEn/OOP/Tests/Multiple/Example/C5D.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/newEn/OOP/Tests/Multiple/Example/C6A.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/newEn/OOP/Tests/Multiple/Example/C6B.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/newEn/OOP/Tests/Multiple/Example/C6C.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/newEn/OOP/Tests/Multiple/Example/C6D.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/newEn/OOP/Tests/Multiple/Example/C7A.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/newEn/OOP/Tests/Multiple/Example/C7B.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/newEn/OOP/Tests/Multiple/Example/C7C.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/newEn/OOP/Tests/Multiple/Example/C7D.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/newEn/OOP/Tests/Multiple/Example/D.class" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/newEn/OOP/Tests/Multiple/Example/C4.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/newEn/OOP/Tests/Multiple/Example/C5.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/newEn/OOP/Tests/Multiple/Example/C6.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/newEn/OOP/Tests/Multiple/Example/I4.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/newEn/OOP/Tests/Multiple/Example/I5.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/newEn/OOP/Tests/Multiple/Example/I6.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/newEn/OOP/Tests/Multiple/Example/OOPMultipleControlTest.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/OOP/Tests/Multiple/Example/C4.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/OOP/Tests/Multiple/Example/C5.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/OOP/Tests/Multiple/Example/C6.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/OOP/Tests/Multiple/Example/I4.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/OOP/Tests/Multiple/Example/I5.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/OOP/Tests/Multiple/Example/I6.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/OOP/Tests/Multiple/Example/OOPMultipleControlTest.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/OOP/Solution/Multiple/OOPMultiple.class" afterPath="$PROJECT_DIR$/OOP/Solution/Multiple/OOPMultiple.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/newEn/OOP/Provided/Multiple/OOPMultipleClassGenerator.class" afterPath="$PROJECT_DIR$/out/production/newEn/OOP/Provided/Multiple/OOPMultipleClassGenerator.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/newEn/OOP/Solution/Multiple/MethodWrapper.class" afterPath="$PROJECT_DIR$/out/production/newEn/OOP/Solution/Multiple/MethodWrapper.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/newEn/OOP/Solution/Multiple/OOPMultipleControl.class" afterPath="$PROJECT_DIR$/out/production/newEn/OOP/Solution/Multiple/OOPMultipleControl.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/newEn/OOP/Tests/Multiple/Example/Example.class" afterPath="$PROJECT_DIR$/out/production/newEn/OOP/Tests/Multiple/Example/Example.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/OOP/Provided/Multiple/OOPMultipleClassGenerator.java" afterPath="$PROJECT_DIR$/src/OOP/Provided/Multiple/OOPMultipleClassGenerator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/OOP/Solution/Multiple/MethodWrapper.java" afterPath="$PROJECT_DIR$/src/OOP/Solution/Multiple/MethodWrapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/OOP/Solution/Multiple/OOPMultipleControl.java" afterPath="$PROJECT_DIR$/src/OOP/Solution/Multiple/OOPMultipleControl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/OOP/Tests/Multiple/Example/Example.java" afterPath="$PROJECT_DIR$/src/OOP/Tests/Multiple/Example/Example.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -106,8 +30,8 @@
       <file leaf-file-name="OOPMultipleControl.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/OOP/Solution/Multiple/OOPMultipleControl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="75" column="53" lean-forward="false" selection-start-line="75" selection-start-column="53" selection-end-line="75" selection-end-column="53" />
+            <state relative-caret-position="170">
+              <caret line="78" column="27" lean-forward="true" selection-start-line="78" selection-start-column="27" selection-end-line="78" selection-end-column="27" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1694#1718#0" expanded="true" />
@@ -1008,7 +932,7 @@
       <workItem from="1497350634187" duration="5927000" />
       <workItem from="1497432555118" duration="9745000" />
       <workItem from="1497444790370" duration="286000" />
-      <workItem from="1497510993556" duration="17105000" />
+      <workItem from="1497510993556" duration="17276000" />
     </task>
     <task id="LOCAL-00001" summary="synced">
       <created>1496919095921</created>
@@ -1102,7 +1026,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="59980000" />
+    <option name="totallyTimeSpent" value="60151000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1114,7 +1038,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1600,8 +1524,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/OOP/Solution/Multiple/OOPMultipleControl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="75" column="53" lean-forward="false" selection-start-line="75" selection-start-column="53" selection-end-line="75" selection-end-column="53" />
+        <state relative-caret-position="170">
+          <caret line="78" column="27" lean-forward="true" selection-start-line="78" selection-start-column="27" selection-end-line="78" selection-end-column="27" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1694#1718#0" expanded="true" />
