@@ -37,54 +37,111 @@ public class OOPMultipleControl
     public void validateInheritanceGraph() throws OOPMultipleException
     {
         HasInherentAmbiguity(interfaceClass);
+//        GetAndCheckDiamond(interfaceClass);
+    }
+
+    public static int CheckCastDepth(Class<?> a, Class<?> b)
+    {
+        try
+        {
+            if (!(b.isInstance(a.newInstance())))
+            {
+                return -1;
+            }
+        } catch (Exception e)
+        {
+
+        }
+        if (a == b)
+        {
+            return 0;
+        }
+
+        Class<?> cls = a.getSuperclass();
+
+        int res = CheckCastDepth(cls, b);
+        if (res >= 0)
+        {
+            return 1 + res;
+        }
+
+
+        return -1;
     }
 
     //TODO: fill in here :
-    public static HashSet<MethodWrapper> func(Class<?> cl,Object[] args) throws OOPMultipleException
+    public static Method GetBestFitMethod(Class<?> forClass, Object[] args, String methodName) throws OOPMultipleException
     {
-        Class<?>[] supers = cl.getInterfaces();
-        HashSet<MethodWrapper> currMethods = new HashSet<>();
-        if (supers.length == 0)
+        Method[] funcsSet = forClass.getMethods();
+        Method minimumCastMethod = null;
+        int minCast = Integer.MAX_VALUE;
+
+        HashSet<Method> currMethods = new HashSet<>();
+        Class<?>[] supers = forClass.getInterfaces();
+        if (supers.length != 0)
         {
-            for (Method method : cl.getMethods())
+            for (Class<?> currClass : supers)
             {
-                currMethods.add(new MethodWrapper(method));
+                Method method = GetBestFitMethod(currClass, args, methodName);
+                if (method != null)
+                {
+                    currMethods.add(method);
+                }
             }
-            return currMethods;
         }
 
         HashSet<Pair<Class<?>, Method>> candidates = new HashSet<Pair<Class<?>, Method>>();
-        int expDiffer = Integer.MAX_VALUE;
-
-        for (Class<?> parent : supers)
+        for (Method methodWrapper : currMethods)
         {
-            HashSet<MethodWrapper> parentMethods = new HashSet<>();
-            parentMethods = func(parent,args);
-
-            for (MethodWrapper methodWrapper : parentMethods)
+            if (methodWrapper.getName() == methodName)
             {
-                for (MethodWrapper curMethodWrapper : currMethods)
+                int curCastInt = GetArgsDiffirence(args, methodWrapper.getParameterTypes());
+                if (curCastInt != -1 && curCastInt <= minCast)
                 {
-                    int firstDiffir1 = GetArgsDiffirence(args,methodWrapper.getMethod().getParameterTypes());
-                    int firstDiffir2 = GetArgsDiffirence(args,curMethodWrapper.getMethod().getParameterTypes());
-
-                    if (curMethodWrapper.equals(methodWrapper) || curMethodWrapper.equalsWithDiffer(methodWrapper,firstDiffir1, firstDiffir2))
+                    if (curCastInt == minCast)
                     {
-                        candidates.add(new Pair<>(methodWrapper.getMethod().getDeclaringClass(), methodWrapper.getMethod()));
-                        candidates.add(new Pair<>(curMethodWrapper.getMethod().getDeclaringClass(), curMethodWrapper.getMethod()));
-                        if(curMethodWrapper.equalsWithDiffer(methodWrapper,firstDiffir1, firstDiffir2)){
-                            expDiffer = firstDiffir1;
-                        }
-//                        for (Object arg:args)
-//                        {
-//                            System.out.println(arg.toString());
-//                        }
-//                        System.out.println(methodWrapper.getMethod().getDeclaringClass().toString() + methodWrapper.getMethod().toString());
-//                        System.out.println(curMethodWrapper.getMethod().getDeclaringClass().toString() + curMethodWrapper.getMethod().toString());
+                        candidates.add(new Pair<>(methodWrapper.getDeclaringClass(), methodWrapper));
+                        candidates.add(new Pair<>(minimumCastMethod.getDeclaringClass(), minimumCastMethod));
+                    }
+                    else
+                    {
+                        minimumCastMethod = methodWrapper;
+                        minCast = curCastInt;
+                        candidates.clear();
                     }
                 }
             }
-            currMethods.addAll(parentMethods);
+        }
+
+        boolean inCur = false;
+        if (funcsSet != null)
+        {
+            for (Method method : funcsSet)
+            {
+                if (method.getDeclaringClass() != forClass)
+                {
+                    continue;
+                }
+                if (method.getName() == methodName)
+                {
+                    int curCastInt = GetArgsDiffirence(args, method.getParameterTypes());
+                    if (curCastInt != -1 && curCastInt <= minCast)
+                    {
+                        if (curCastInt == minCast)
+                        {
+                            candidates.add(new Pair<>(method.getDeclaringClass(), method));
+                            candidates.add(new Pair<>(minimumCastMethod.getDeclaringClass(), minimumCastMethod));
+                        }
+                        else
+                        {
+                            minimumCastMethod = method;
+                            minCast = curCastInt;
+                            candidates.clear();
+//                            inCur = true;
+                        }
+                    }
+                }
+            }
         }
 
         if (candidates.size() != 0)
@@ -92,26 +149,104 @@ public class OOPMultipleControl
             throw new OOPCoincidentalAmbiguity(candidates);
         }
 
-        HashSet<MethodWrapper> toReturnMethods = new HashSet<>();
-        for (MethodWrapper methodWrapper : currMethods)
+        return minimumCastMethod;
+    }
+
+    public Object invoke(String methodName, Object[] args) throws OOPMultipleException
+    {
+        Method minimumCastMethod = GetBestFitMethod(interfaceClass, args, methodName);
+        if (minimumCastMethod != null)
         {
-            toReturnMethods.add(methodWrapper);
+            try
+            {
+                Method classMethod = getClassMethod(minimumCastMethod);
+                Class<?> methodClass = classMethod.getDeclaringClass();
+                Object toReturn = classMethod.invoke(methodClass.newInstance(), args);
+                return toReturn;
+            } catch (Exception e)
+            {
+                System.out.println(e.getMessage());
+            }
         }
 
-        for (Method method : cl.getMethods())
-        {
-            if (method.getDeclaringClass() != cl)
-            {
-                continue;
-            }
-            for (MethodWrapper methodWrapper : toReturnMethods)
-            {
-                if (methodWrapper.equals(new MethodWrapper(method))) currMethods.remove(methodWrapper);
-            }
-            currMethods.add(new MethodWrapper(method));
-        }
-        return currMethods;
+        return null;
     }
+
+
+    //TODO: delete func when done!
+//    public static HashSet<MethodWrapper> func(Class<?> cl, Object[] args) throws OOPMultipleException
+//    {
+//        Class<?>[] supers = cl.getInterfaces();
+//        HashSet<MethodWrapper> currMethods = new HashSet<>();
+//        if (supers.length == 0)
+//        {
+//            for (Method method : cl.getMethods())
+//            {
+//                currMethods.add(new MethodWrapper(method));
+//            }
+//            return currMethods;
+//        }
+//
+//        HashSet<Pair<Class<?>, Method>> candidates = new HashSet<Pair<Class<?>, Method>>();
+//        int expDiffer = Integer.MAX_VALUE;
+//
+//        for (Class<?> parent : supers)
+//        {
+//            HashSet<MethodWrapper> parentMethods = new HashSet<>();
+//            parentMethods = func(parent, args);
+//
+//            for (MethodWrapper methodWrapper : parentMethods)
+//            {
+//                for (MethodWrapper curMethodWrapper : currMethods)
+//                {
+//                    int firstDiffir1 = GetArgsDiffirence(args, methodWrapper.getMethod().getParameterTypes());
+//                    int firstDiffir2 = GetArgsDiffirence(args, curMethodWrapper.getMethod().getParameterTypes());
+//
+//                    if (curMethodWrapper.equals(methodWrapper) || curMethodWrapper.equalsWithDiffer(methodWrapper, firstDiffir1, firstDiffir2))
+//                    {
+//                        candidates.add(new Pair<>(methodWrapper.getMethod().getDeclaringClass(), methodWrapper.getMethod()));
+//                        candidates.add(new Pair<>(curMethodWrapper.getMethod().getDeclaringClass(), curMethodWrapper.getMethod()));
+//                        if (curMethodWrapper.equalsWithDiffer(methodWrapper, firstDiffir1, firstDiffir2))
+//                        {
+//                            expDiffer = firstDiffir1;
+//                        }
+////                        for (Object arg:args)
+////                        {
+////                            System.out.println(arg.toString());
+////                        }
+////                        System.out.println(methodWrapper.getMethod().getDeclaringClass().toString() + methodWrapper.getMethod().toString());
+////                        System.out.println(curMethodWrapper.getMethod().getDeclaringClass().toString() + curMethodWrapper.getMethod().toString());
+//                    }
+//                }
+//            }
+//            currMethods.addAll(parentMethods);
+//        }
+//
+//        if (candidates.size() != 0)
+//        {
+//            throw new OOPCoincidentalAmbiguity(candidates);
+//        }
+//
+//        HashSet<MethodWrapper> toReturnMethods = new HashSet<>();
+//        for (MethodWrapper methodWrapper : currMethods)
+//        {
+//            toReturnMethods.add(methodWrapper);
+//        }
+//
+//        for (Method method : cl.getMethods())
+//        {
+//            if (method.getDeclaringClass() != cl)
+//            {
+//                continue;
+//            }
+//            for (MethodWrapper methodWrapper : toReturnMethods)
+//            {
+//                if (methodWrapper.equals(new MethodWrapper(method))) currMethods.remove(methodWrapper);
+//            }
+//            currMethods.add(new MethodWrapper(method));
+//        }
+//        return currMethods;
+//    }
 
     private static int GetArgsDiffirence(Object[] args1, Class<?>[] args2)
     {
@@ -120,7 +255,8 @@ public class OOPMultipleControl
             if (args1 == null && args2.length == 0)
             {
                 return 0;
-            } else
+            }
+            else
             {
                 return -1;
             }
@@ -156,9 +292,10 @@ public class OOPMultipleControl
             {
                 if (type1 != args2[i])
                 {
-                    counter++;
+                    counter += CheckCastDepth(type1, args2[i]);
                 }
-            } else
+            }
+            else
             {
                 return -1;
             }
@@ -168,52 +305,53 @@ public class OOPMultipleControl
         return counter;
     }
 
-    public Object invoke(String methodName, Object[] args) throws OOPMultipleException
-    {
-
-        HashSet<MethodWrapper> funcsSet = func(interfaceClass,args);
-        MethodWrapper minimumCastMethod = null;
-        int minCast = Integer.MAX_VALUE;
-
-        for (MethodWrapper methodWrapper : funcsSet)
-        {
-            if (methodWrapper.getMethod().getName() == methodName)
-            {
-                int curCastInt = GetArgsDiffirence(args, methodWrapper.getMethod().getParameterTypes());
-                if (curCastInt != -1 && curCastInt <= minCast)
-                {
-                    if (curCastInt == minCast)
-                    {
-                        if (minimumCastMethod.getMethod().getDeclaringClass().isAssignableFrom(methodWrapper.getMethod().getDeclaringClass()))
-                        {
-                            minimumCastMethod = methodWrapper;
-                            minCast = curCastInt;
-                        }
-                    } else
-                    {
-                        minimumCastMethod = methodWrapper;
-                        minCast = curCastInt;
-                    }
-                }
-            }
-        }
-
-        if (minimumCastMethod != null)
-        {
-            try
-            {
-                Method classMethod = getClassMethod(minimumCastMethod.getMethod());
-                Class<?> methodClass = getClassMethod(minimumCastMethod.getMethod()).getDeclaringClass();
-                Object toReturn = classMethod.invoke(methodClass.newInstance(), args);
-                return toReturn;
-            } catch (Exception e)
-            {
-                System.out.println(e.getMessage());
-            }
-        }
-
-        return null;
-    }
+//    public Object invoke(String methodName, Object[] args) throws OOPMultipleException
+//    {
+//
+//        HashSet<MethodWrapper> funcsSet = func(interfaceClass, args);
+//        MethodWrapper minimumCastMethod = null;
+//        int minCast = Integer.MAX_VALUE;
+//
+//        for (MethodWrapper methodWrapper : funcsSet)
+//        {
+//            if (methodWrapper.getMethod().getName() == methodName)
+//            {
+//                int curCastInt = GetArgsDiffirence(args, methodWrapper.getMethod().getParameterTypes());
+//                if (curCastInt != -1 && curCastInt <= minCast)
+//                {
+//                    if (curCastInt == minCast)
+//                    {
+//                        if (minimumCastMethod.getMethod().getDeclaringClass().isAssignableFrom(methodWrapper.getMethod().getDeclaringClass()))
+//                        {
+//                            minimumCastMethod = methodWrapper;
+//                            minCast = curCastInt;
+//                        }
+//                    }
+//                    else
+//                    {
+//                        minimumCastMethod = methodWrapper;
+//                        minCast = curCastInt;
+//                    }
+//                }
+//            }
+//        }
+//
+//        if (minimumCastMethod != null)
+//        {
+//            try
+//            {
+//                Method classMethod = getClassMethod(minimumCastMethod.getMethod());
+//                Class<?> methodClass = getClassMethod(minimumCastMethod.getMethod()).getDeclaringClass();
+//                Object toReturn = classMethod.invoke(methodClass.newInstance(), args);
+//                return toReturn;
+//            } catch (Exception e)
+//            {
+//                System.out.println(e.getMessage());
+//            }
+//        }
+//
+//        return null;
+//    }
 
     public static String getClassName(String interfaceName)
     {
@@ -251,6 +389,49 @@ public class OOPMultipleControl
 
     //TODO: add more of your code :
 
+    public static ArrayList<Class<?>> GetAndCheckDiamond(Class<?> cl) throws OOPMultipleException
+    {
+        ArrayList<Class<?>> allSupers = new ArrayList<>();
+        Class<?>[] supers = cl.getInterfaces();
+        if (supers == null)
+        {
+            return null;
+        }
+
+        for (Class<?> next : supers)
+        {
+            allSupers.add(next);
+        }
+
+        for (Class<?> next : supers)
+        {
+            ArrayList<Class<?>> curSupers = GetAndCheckDiamond(next);
+            if (curSupers != null)
+            {
+                for (Class<?> nextdou : curSupers)
+                {
+                    if (allSupers.contains(next))
+                    {
+                        Method[] nextMethods = nextdou.getDeclaredMethods();
+                        for (Method method : nextMethods)
+                        {
+                            if (!Modifier.isPrivate(method.getModifiers()))
+                            {
+                                throw new OOPInherentAmbiguity(cl, next, method); // change c1 to interfaceClass
+                            }
+                        }
+                    }
+                    else
+                    {
+                        allSupers.add(next);
+                    }
+                }
+            }
+        }
+
+        return allSupers;
+    }
+
     //****************************************************************
     //TODO: 1) check code duplicate in HasInherentAmbiguity functions.
     //TODO: 2) check which inteface should pass to the exception.
@@ -261,6 +442,19 @@ public class OOPMultipleControl
         Set<Class<?>> types = new HashSet<>();
         queue.add(cl);
         types.add(cl);
+
+//        Class<?>[] supers = cl.getInterfaces();
+//        if (supers != null)
+//        {
+//            for (Class<?> next : supers)
+//            {
+//                HasInherentAmbiguity(next);
+//            }
+//        }
+//        else
+//        {
+//            return;
+//        }
 
 //        As Written in FAQ
 //        if (!cl.isAnnotationPresent(OOPMultipleInterface.class))
@@ -334,108 +528,108 @@ public class OOPMultipleControl
             sourceFile.delete();
         }
     }
-
-
-    @OOPMultipleInterface
-    interface C
-    {
-        @OOPMultipleMethod
-        public void getfive();
-    }
-
-
-    @OOPMultipleInterface
-    interface B1 extends C
-    {
-        @OOPMultipleMethod
-        public void getfive();
-    }
-
-    @OOPMultipleInterface
-    interface B2 extends C
-    {
-        @OOPMultipleMethod
-        public void getfive();
-    }
-
-    @OOPMultipleInterface
-    interface A extends B1, B2
-    {
-        @OOPMultipleMethod
-        public void getfive();
-    }
-
-    @OOPMultipleInterface
-    interface B extends B1
-    {
-        @OOPMultipleMethod
-        public void getfive();
-    }
-
-    @OOPMultipleInterface
-    interface F1
-    {
-        @OOPMultipleMethod
-        public void getfive();
-    }
-
-    @OOPMultipleInterface
-    interface G1 extends F1
-    {
-        @OOPMultipleMethod
-        public void getfive();
-    }
-
-    @OOPMultipleInterface
-    interface H1 extends G1
-    {
+}
+//
+//    @OOPMultipleInterface
+//    interface C
+//    {
 //        @OOPMultipleMethod
 //        public void getfive();
-    }
-
-    @OOPMultipleInterface
-    interface F2
-    {
-        @OOPMultipleMethod
-        public void getfive();
-    }
-
-    @OOPMultipleInterface
-    interface G2 extends F2
-    {
+//    }
+//
+//
+//    @OOPMultipleInterface
+//    interface B1 extends C
+//    {
 //        @OOPMultipleMethod
 //        public void getfive();
-    }
-
-    @OOPMultipleInterface
-    interface H2 extends G2
-    {
+//    }
+//
+//    @OOPMultipleInterface
+//    interface B2 extends C
+//    {
 //        @OOPMultipleMethod
 //        public void getfive();
-    }
+//    }
+//
+//    @OOPMultipleInterface
+//    interface A extends B1, B2
+//    {
+//        @OOPMultipleMethod
+//        public void getfive();
+//    }
+//
+//    @OOPMultipleInterface
+//    interface B extends B1
+//    {
+//        @OOPMultipleMethod
+//        public void getfive();
+//    }
+//
+//    @OOPMultipleInterface
+//    interface F1
+//    {
+//        @OOPMultipleMethod
+//        public void getfive();
+//    }
+//
+//    @OOPMultipleInterface
+//    interface G1 extends F1
+//    {
+//        @OOPMultipleMethod
+//        public void getfive();
+//    }
+//
+//    @OOPMultipleInterface
+//    interface H1 extends G1
+//    {
+////        @OOPMultipleMethod
+////        public void getfive();
+//    }
+//
+//    @OOPMultipleInterface
+//    interface F2
+//    {
+//        @OOPMultipleMethod
+//        public void getfive();
+//    }
+//
+//    @OOPMultipleInterface
+//    interface G2 extends F2
+//    {
+////        @OOPMultipleMethod
+////        public void getfive();
+//    }
+//
+//    @OOPMultipleInterface
+//    interface H2 extends G2
+//    {
+////        @OOPMultipleMethod
+////        public void getfive();
+//    }
+//
+//    @OOPMultipleInterface
+//    interface H3
+//    {
+//        @OOPMultipleMethod
+//        public void getfive();
+//    }
+//
+//    @OOPMultipleInterface
+//    interface I extends H1, H2, H3
+//    {
+//
+//    }
+//
+//    @OOPMultipleInterface
+//    interface I2 extends H1
+//    {
+//
+//    }
 
-    @OOPMultipleInterface
-    interface H3
-    {
-        @OOPMultipleMethod
-        public void getfive();
-    }
 
-    @OOPMultipleInterface
-    interface I extends H1, H2, H3
-    {
-
-    }
-
-    @OOPMultipleInterface
-    interface I2 extends H1
-    {
-
-    }
-
-
-    public static void main(String[] args)
-    {
+//    public static void main(String[] args)
+//    {
 
 //        System.out.println(B.class.getMethods()[0].getDeclaringClass());
 //
@@ -464,13 +658,4 @@ public class OOPMultipleControl
 //        {
 //            System.out.println("Failed OOPBadClass");
 ////            System.out.println(e);
-//        } catch (Exception e)
-//        {
-//
-//            System.out.println("Failed Built In exception");
-//        }
-
-
-    }
-
-}
+//        } catch (Excep
