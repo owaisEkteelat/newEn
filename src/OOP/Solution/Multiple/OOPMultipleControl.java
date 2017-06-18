@@ -37,7 +37,7 @@ public class OOPMultipleControl
     public void validateInheritanceGraph() throws OOPMultipleException
     {
         HasInherentAmbiguity(interfaceClass);
-//        GetAndCheckDiamond(interfaceClass);
+        GetAndCheckDiamond(interfaceClass,interfaceClass);
     }
 
     public static int CheckCastDepth(Class<?> a, Class<?> b)
@@ -389,7 +389,7 @@ public class OOPMultipleControl
 
     //TODO: add more of your code :
 
-    public static ArrayList<Class<?>> GetAndCheckDiamond(Class<?> cl) throws OOPMultipleException
+    public static ArrayList<Class<?>> GetAndCheckDiamond(Class<?> cl, Class<?> initClass) throws OOPMultipleException
     {
         ArrayList<Class<?>> allSupers = new ArrayList<>();
         Class<?>[] supers = cl.getInterfaces();
@@ -405,25 +405,25 @@ public class OOPMultipleControl
 
         for (Class<?> next : supers)
         {
-            ArrayList<Class<?>> curSupers = GetAndCheckDiamond(next);
+            ArrayList<Class<?>> curSupers = GetAndCheckDiamond(next,initClass);
             if (curSupers != null)
             {
                 for (Class<?> nextdou : curSupers)
                 {
-                    if (allSupers.contains(next))
+                    if (allSupers.contains(nextdou))
                     {
                         Method[] nextMethods = nextdou.getDeclaredMethods();
                         for (Method method : nextMethods)
                         {
                             if (!Modifier.isPrivate(method.getModifiers()))
                             {
-                                throw new OOPInherentAmbiguity(cl, next, method); // change c1 to interfaceClass
+                                throw new OOPInherentAmbiguity(initClass, method.getDeclaringClass(), method); // change c1 to interfaceClass
                             }
                         }
                     }
                     else
                     {
-                        allSupers.add(next);
+                        allSupers.add(nextdou);
                     }
                 }
             }
@@ -499,16 +499,16 @@ public class OOPMultipleControl
                     }
                 }
 
-                if (types.contains(next))
-                {
-                    for (Method method : nextMethods)
-                    {
-                        if (!Modifier.isPrivate(method.getModifiers()))
-                        {
-                            throw new OOPInherentAmbiguity(cl, next, method); // change c1 to interfaceClass
-                        }
-                    }
-                }
+//                if (types.contains(next))
+//                {
+//                    for (Method method : nextMethods)
+//                    {
+//                        if (!Modifier.isPrivate(method.getModifiers()))
+//                        {
+//                            throw new OOPInherentAmbiguity(cl, next, method); // change c1 to interfaceClass
+//                        }
+//                    }
+//                }
 
                 if (!types.contains(next))
                 {
