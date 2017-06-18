@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="453e033d-f2bc-423a-b138-b634c8cc0fbe" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/OOP/Solution/Multiple/OOPMultipleControl.java" afterPath="$PROJECT_DIR$/src/OOP/Solution/Multiple/OOPMultipleControl.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -30,8 +31,8 @@
       <file leaf-file-name="OOPMultipleControl.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/OOP/Solution/Multiple/OOPMultipleControl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="200">
-              <caret line="509" column="23" lean-forward="true" selection-start-line="509" selection-start-column="23" selection-end-line="509" selection-end-column="23" />
+            <state relative-caret-position="2065">
+              <caret line="358" column="5" lean-forward="true" selection-start-line="358" selection-start-column="5" selection-end-line="358" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -720,7 +721,7 @@
       <workItem from="1497444790370" duration="286000" />
       <workItem from="1497510993556" duration="17276000" />
       <workItem from="1497731784701" duration="2318000" />
-      <workItem from="1497771450996" duration="6229000" />
+      <workItem from="1497771450996" duration="6463000" />
     </task>
     <task id="LOCAL-00001" summary="synced">
       <created>1496919095921</created>
@@ -792,13 +793,17 @@
       <option name="project" value="LOCAL" />
       <updated>1497781750335</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Tests Passed!">
+      <created>1497782126982</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1497782126982</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="TestMultiple - 2017.06.18 at 11h 29m 49s.xml">
-      <configuration name="TestMultiple" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="TestMultiple - 2017.06.18 at 13h 10m 21s.xml">
       <configuration name="TestMultiple" configurationId="JUnit" />
     </history-entry>
@@ -826,9 +831,12 @@
     <history-entry file="TestMultiple - 2017.06.18 at 13h 31m 26s.xml">
       <configuration name="TestMultiple" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="TestMultiple - 2017.06.18 at 14h 07m 25s.xml">
+      <configuration name="TestMultiple" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="79875000" />
+    <option name="totallyTimeSpent" value="80109000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -891,14 +899,6 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/OOP/Solution/Multiple/OOPMultipleControl.java</url>
-          <line>419</line>
-          <properties />
-          <option name="timeStamp" value="79" />
-        </line-breakpoint>
-      </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
@@ -1242,8 +1242,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/OOP/Solution/Multiple/OOPMultipleControl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="509" column="23" lean-forward="true" selection-start-line="509" selection-start-column="23" selection-end-line="509" selection-end-column="23" />
+        <state relative-caret-position="2065">
+          <caret line="358" column="5" lean-forward="true" selection-start-line="358" selection-start-column="5" selection-end-line="358" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
