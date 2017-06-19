@@ -3,6 +3,7 @@ package OOP.Tests.Trait.Example;
 import OOP.Provided.Trait.OOPTraitException;
 import OOP.Solution.Trait.OOPTraitBehaviour;
 import OOP.Solution.Trait.OOPTraitMethod;
+import OOP.Solution.Trait.OOPTraitMethodModifier;
 
 import static OOP.Tests.Trait.Example.TestTrait.obj3J;
 

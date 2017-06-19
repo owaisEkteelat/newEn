@@ -3,6 +3,7 @@ package OOP.Tests.Trait.Example;
 import OOP.Provided.Trait.OOPTraitException;
 import OOP.Solution.Trait.OOPTraitConflictResolver;
 import OOP.Solution.Trait.OOPTraitMethod;
+import OOP.Solution.Trait.OOPTraitMethodModifier;
 
 import static OOP.Solution.Trait.OOPTraitMethodModifier.INTER_MISSING_IMPL;
 

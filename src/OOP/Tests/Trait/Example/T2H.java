@@ -2,6 +2,7 @@ package OOP.Tests.Trait.Example;
 
 import OOP.Provided.Trait.OOPTraitException;
 import OOP.Solution.Trait.OOPTraitMethod;
+import OOP.Solution.Trait.OOPTraitMethodModifier;
 
 /**
  * Created by danie_000 on 6/12/2017.

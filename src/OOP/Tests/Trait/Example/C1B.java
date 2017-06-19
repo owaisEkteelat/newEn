@@ -2,6 +2,7 @@ package OOP.Tests.Trait.Example;
 
 import OOP.Provided.Trait.OOPTraitException;
 import OOP.Solution.Trait.OOPTraitMethod;
+import OOP.Solution.Trait.OOPTraitMethodModifier;
 
 public class C1B implements T1B {     //like the example from the lecture.. in part.
     private int n;

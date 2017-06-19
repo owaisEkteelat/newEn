@@ -2,6 +2,7 @@ package OOP.Tests.Trait.Example;
 
 import OOP.Provided.Trait.OOPTraitException;
 import OOP.Solution.Trait.OOPTraitMethod;
+import OOP.Solution.Trait.OOPTraitMethodModifier;
 
 public class C2A implements T2A {
 
