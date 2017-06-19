@@ -258,7 +258,6 @@ public class TestMultiple {
             Assert.assertEquals("I5C", (String) obj5D.g(new C(), new E(), new E()));
             Assert.assertEquals("I5C", (String) obj5D.g(new D(), new B(), new C()));
             Assert.assertEquals("I5C", (String) obj5D.g(new D(), new B(), new D()));
-            System.out.println((String) obj5D.g(new D(), new B(), new E()));
             Assert.assertEquals("I5C", (String) obj5D.g(new D(), new B(), new E()));
             Assert.assertEquals("I5C", (String) obj5D.g(new D(), new C(), new C()));
             Assert.assertEquals("I5C", (String) obj5D.g(new D(), new C(), new D()));

@@ -171,7 +171,7 @@ public class OOPMultipleControl
         return null;
     }
 
-    private static int GetArgsDiffirence(Object[] args1, Class<?>[] args2)
+    public static int GetArgsDiffirence(Object[] args1, Class<?>[] args2)
     {
         if (args1 == null || args2.length == 0)
         {
