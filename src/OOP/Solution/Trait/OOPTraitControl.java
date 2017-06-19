@@ -4,25 +4,19 @@ import OOP.Provided.Multiple.OOPCoincidentalAmbiguity;
 import OOP.Provided.Multiple.OOPMultipleException;
 import OOP.Provided.Trait.OOPTraitConflict;
 import OOP.Provided.Trait.OOPTraitException;
-<<<<<<< HEAD
 import OOP.Solution.Multiple.MethodWrapper;
 import OOP.Solution.OOPDebuggingExceptionTraits;
-=======
 import OOP.Solution.Multiple.OOPMultipleControl;
->>>>>>> origin/master
 import javafx.util.Pair;
 
 import java.io.File;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
-<<<<<<< HEAD
 import java.util.HashSet;
 import java.util.List;
 
-=======
 import java.util.ArrayList;
 import java.util.HashSet;
->>>>>>> origin/master
 
 public class OOPTraitControl
 {
@@ -38,14 +32,6 @@ public class OOPTraitControl
         this.sourceFile = sourceFile;
     }
 
-    static List<Method> allMethodsInParents(Class<?> base)
-    {
-
-        return null;
-    }
-
-
-
 
     public static MethodWrapper getMethodWrapperByClass (Class<?> myClass, MethodWrapper parMethodWrapper) throws OOPDebuggingExceptionTraits {
         for ( Method currentMethod : myClass.getMethods() ) {
@@ -57,7 +43,23 @@ public class OOPTraitControl
         throw new OOPDebuggingExceptionTraits(parMethodWrapper.toString() + " is not exist in : " + myClass );
     }
 
+    public static void certainThatMethodSolveTheConflict ( MethodWrapper methodWrapper ) throws OOPTraitException {
+        OOPTraitMethod traitMethodAnnotation = null;
+        try
+        {
+           traitMethodAnnotation = methodWrapper.getMethod().getAnnotation(OOPTraitMethod.class);
+        } catch (NullPointerException e)
+        {
+            throw new OOPTraitConflict(methodWrapper.getMethod());
+        }
 
+        if (traitMethodAnnotation.modifier() != OOPTraitMethodModifier.INTER_CONFLICT)
+        {
+            throw new OOPTraitConflict(methodWrapper.getMethod());
+        }
+    }
+
+    // include child
     public static HashSet<MethodWrapper> getParentsMethodsWithoutConflicts(Class<?> child, Class<?> myTraitCollector) throws OOPTraitException
     {
         Class<?>[] supers = child.getInterfaces();
@@ -73,34 +75,39 @@ public class OOPTraitControl
             return currMethods;
         }
 
-        // the
-    //    HashSet<Method> candidatesMethods = new HashSet<Method>();
-
         for (Class<?> currentParent : supers)
         {
             HashSet<MethodWrapper> currentParentMethods = new HashSet<>();
-            currentParentMethods = getParentsMethodsWithoutConflicts(currentParent,myTraitCollector);
+            currentParentMethods = getParentsMethodsWithoutConflicts(currentParent, myTraitCollector);
 
-            for (MethodWrapper methodWrapper : currentParentMethods)
+            for (MethodWrapper ParentMethodWrapper : currentParentMethods)
             {
                 for (MethodWrapper curMethodWrapper : currMethods)
                 {
-                    if (curMethodWrapper.equals(methodWrapper))
+                    if (curMethodWrapper.equals(ParentMethodWrapper))
                     {
-                            MethodWrapper traitMethod =  getMethodWrapperByClass(myTraitCollector,methodWrapper);
-                            Annotation  traitMethodAnootation = traitMethod.getMethod().getAnnotation(OOPTra)
-
-
-
+                        MethodWrapper traitMethod = getMethodWrapperByClass(myTraitCollector, ParentMethodWrapper);
+                        certainThatMethodSolveTheConflict(traitMethod);
                     }
                 }
             }
-            currMethods.addAll(parentMethods);
+        }
+
+            for (Method method : child.getMethods())
+            {
+                for (MethodWrapper methodWrapper : currMethods)
+                {
+                    if (methodWrapper.equals(new MethodWrapper(method)))
+                        currMethods.remove(methodWrapper);
+                }
+
+                currMethods.add(new MethodWrapper(method));
+            }
+            return currMethods;
         }
 
 
-        return null;
-    }
+
 
 
     //TODO: fill in here :
