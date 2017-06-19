@@ -32,30 +32,15 @@ public class OOPTraitControl
         this.sourceFile = sourceFile;
     }
 
-<<<<<<< HEAD
 
     public static MethodWrapper getMethodWrapperByClass (Class<?> myClass, MethodWrapper parMethodWrapper) throws OOPDebuggingExceptionTraits {
         for ( Method currentMethod : myClass.getMethods() ) {
-=======
-    static List<Method> allMethodsInParents(Class<?> base)
-    {
-
-        return null;
-    }
-
-
-    public static MethodWrapper getMethodWrapperByClass(Class<?> myClass, MethodWrapper parMethodWrapper) throws OOPDebuggingExceptionTraits
-    {
-        for (Method currentMethod : myClass.getMethods())
-        {
->>>>>>> origin/master
             MethodWrapper currentMethodWrapper = new MethodWrapper(currentMethod);
-            if (currentMethodWrapper.equals(parMethodWrapper))
-            {
+            if ( currentMethodWrapper.equals(parMethodWrapper) )  {
                 return currentMethodWrapper;
             }
         }
-        throw new OOPDebuggingExceptionTraits(parMethodWrapper.toString() + " is not exist in : " + myClass);
+        throw new OOPDebuggingExceptionTraits(parMethodWrapper.toString() + " is not exist in : " + myClass );
     }
 
     public static void certainThatMethodSolveTheConflict ( MethodWrapper methodWrapper ) throws OOPTraitException {
@@ -90,12 +75,6 @@ public class OOPTraitControl
             return currMethods;
         }
 
-<<<<<<< HEAD
-=======
-        // the
-        //    HashSet<Method> candidatesMethods = new HashSet<Method>();
-
->>>>>>> origin/master
         for (Class<?> currentParent : supers)
         {
             HashSet<MethodWrapper> currentParentMethods = new HashSet<>();
@@ -107,22 +86,11 @@ public class OOPTraitControl
                 {
                     if (curMethodWrapper.equals(ParentMethodWrapper))
                     {
-<<<<<<< HEAD
                         MethodWrapper traitMethod = getMethodWrapperByClass(myTraitCollector, ParentMethodWrapper);
                         certainThatMethodSolveTheConflict(traitMethod);
                     }
                 }
             }
-=======
-                        MethodWrapper traitMethod = getMethodWrapperByClass(myTraitCollector, methodWrapper);
-//                            Annotation  traitMethodAnootation = traitMethod.getMethod().getAnnotation(OOPTra)
-
-
-                    }
-                }
-            }
-//            currMethods.addAll(parentMethods);
->>>>>>> origin/master
         }
 
             for (Method method : child.getMethods())
@@ -151,42 +119,12 @@ public class OOPTraitControl
     //TODO: fill in here :
     public Object invoke(String methodName, Object[] args) throws OOPTraitException
     {
-        Method minimumCastMethod = GetBestFitMethod(traitCollector, args, methodName);
-        if (minimumCastMethod != null)
-        {
-            try
-            {
-                Method classMethod = OOPMultipleControl.getClassMethod(minimumCastMethod);
-                Class<?> methodClass = classMethod.getDeclaringClass();
-                OOPTraitMethod annotation = classMethod.getAnnotation(OOPTraitMethod.class);
-                if (annotation.modifier() == OOPTraitMethodModifier.INTER_CONFLICT)
-                {
-                    OOPTraitConflictResolver conflectResolver = classMethod.getAnnotation(OOPTraitConflictResolver.class);
-                    Method[] methodClassmethods = conflectResolver.resolve().getMethods();
-                    for (Method method : methodClassmethods)
-                    {
-                        if (method.getName() == classMethod.getName()
-                                && method.getParameterCount() == classMethod.getParameterCount())
-                        {
-                            classMethod = method;
-                            break;
-                        }
-                    }
-                }
-                Object toReturn = classMethod.invoke(methodClass.newInstance(), args);
-                return toReturn;
-            } catch (Exception e)
-            {
-                System.out.println(e.getMessage());
-            }
-        }
-
         return null;
     }
 
     //TODO: add more of your code :
 
-    public static Method GetBestFitMethod(Class<?> forClass, Object[] args, String methodName) throws OOPTraitException
+    public static Method GetBestFitMethod(Class<?> forClass, Object[] args, String methodName) throws OOPMultipleException
     {
         Method[] funcsSet = forClass.getMethods();
         Method minimumCastMethod = null;
@@ -209,12 +147,6 @@ public class OOPTraitControl
         HashSet<Pair<Class<?>, Method>> candidates = new HashSet<Pair<Class<?>, Method>>();
         for (Method methodWrapper : currMethods)
         {
-            OOPTraitMethod annotation = methodWrapper.getAnnotation(OOPTraitMethod.class);
-            if (annotation.modifier() != OOPTraitMethodModifier.INTER_CONFLICT
-                    && annotation.modifier() != OOPTraitMethodModifier.INTER_IMPL)
-            {
-                continue;
-            }
             if (methodWrapper.getName() == methodName)
             {
                 int curCastInt = OOPMultipleControl.GetArgsDiffirence(args, methodWrapper.getParameterTypes());
@@ -244,15 +176,8 @@ public class OOPTraitControl
                 {
                     continue;
                 }
-                OOPTraitMethod annotation = method.getAnnotation(OOPTraitMethod.class);
-                if (annotation.modifier() != OOPTraitMethodModifier.INTER_CONFLICT
-                        && annotation.modifier() != OOPTraitMethodModifier.INTER_IMPL)
-                {
-                    continue;
-                }
                 if (method.getName() == methodName)
                 {
-
                     int curCastInt = OOPMultipleControl.GetArgsDiffirence(args, method.getParameterTypes());
                     if (curCastInt != -1 && curCastInt <= minCast)
                     {
@@ -274,47 +199,46 @@ public class OOPTraitControl
 
         if (candidates.size() != 0)
         {
-            Method chosenMethod = minimumCastMethod;
-            OOPTraitMethod annotation = chosenMethod.getAnnotation(OOPTraitMethod.class);
-            if (annotation.modifier() == OOPTraitMethodModifier.INTER_CONFLICT)
+            OOPTraitMethod annotation = minimumCastMethod.getAnnotation(OOPTraitMethod.class);
+            if(annotation.modifier() == OOPTraitMethodModifier.INTER_CONFLICT)
             {
-                OOPTraitConflictResolver conflectResolver = chosenMethod.getAnnotation(OOPTraitConflictResolver.class);
+                OOPTraitConflictResolver conflectResolver = minimumCastMethod.getAnnotation(OOPTraitConflictResolver.class);
                 Method[] methodClassmethods = conflectResolver.resolve().getMethods();
-                for (Method method : methodClassmethods)
+                for(Method method : methodClassmethods)
                 {
-                    if (method.getName() == chosenMethod.getName()
-                            && method.getParameterCount() == chosenMethod.getParameterCount())
+                    if(method.getName() == minimumCastMethod.getName()
+                            && method.getParameterCount() == minimumCastMethod.getParameterCount())
                     {
                         return method;
                     }
                 }
             }
-//            throw new OOPCoincidentalAmbiguity(candidates);
+            throw new OOPCoincidentalAmbiguity(candidates);
         }
 
         return minimumCastMethod;
     }
 
-    public static boolean HandleAbsMethods(Class<?> currClass, ArrayList<Method> subsMethods)
+    public static boolean HandleAbsMethods(Class<?> currClass,ArrayList<Method> subsMethods)
     {
         Method[] currMethods = currClass.getMethods();
-        if (currMethods != null)
+        if(currMethods != null)
         {
-            for (Method curMethod : currMethods)
+            for(Method curMethod : currMethods)
             {
                 OOPTraitMethod annotation = curMethod.getAnnotation(OOPTraitMethod.class);
-                if (annotation.modifier() == OOPTraitMethodModifier.INTER_ABS)
+                if(annotation.modifier() == OOPTraitMethodModifier.INTER_ABS)
                 {
                     boolean hasImpl = false;
-                    for (Method subMethod : subsMethods)
+                    for(Method subMethod : subsMethods)
                     {
                         OOPTraitMethod subAnnotation = curMethod.getAnnotation(OOPTraitMethod.class);
-                        if (subAnnotation.modifier() == OOPTraitMethodModifier.INTER_IMPL)
+                        if(subAnnotation.modifier() == OOPTraitMethodModifier.INTER_IMPL)
                         {
                             hasImpl = true;
                         }
                     }
-                    if (!hasImpl)
+                    if(!hasImpl)
                     {
                         return false;
                     }
@@ -329,9 +253,9 @@ public class OOPTraitControl
             currAndSubsMethods.add(method);
         }
 
-        for (Class<?> superClass : currClass.getInterfaces())
+        for(Class<?> superClass : currClass.getInterfaces())
         {
-            if (!HandleAbsMethods(superClass, currAndSubsMethods))
+            if(!HandleAbsMethods(superClass,currAndSubsMethods))
             {
                 return false;
             }
@@ -342,25 +266,25 @@ public class OOPTraitControl
 
     public static boolean AreAnnotated(Class<?> currClass)
     {
-        if (!currClass.isAnnotationPresent(OOPTraitBehaviour.class))
+        if(!currClass.isAnnotationPresent(OOPTraitBehaviour.class))
         {
             return false;
         }
 
-        if (currClass.getMethods() != null)
+        if(currClass.getMethods() != null)
         {
             for (Method method : currClass.getMethods())
             {
-                if (!method.isAnnotationPresent(OOPTraitMethod.class))
+                if(!method.isAnnotationPresent(OOPTraitMethod.class))
                 {
                     return false;
                 }
             }
         }
 
-        for (Class<?> superClass : currClass.getInterfaces())
+        for(Class<?> superClass : currClass.getInterfaces())
         {
-            if (!AreAnnotated(superClass))
+            if(!AreAnnotated(superClass))
             {
                 return false;
             }
