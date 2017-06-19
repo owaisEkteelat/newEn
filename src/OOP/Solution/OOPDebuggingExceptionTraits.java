@@ -1,17 +1,16 @@
 package OOP.Solution;
 
-
 import OOP.Provided.Multiple.OOPMultipleException;
 import OOP.Provided.Trait.OOPTraitException;
 
 /**
- * Created by owais on 14-Jun-17.
+ * Created by owais on 19-Jun-17.
  */
-public class OOPDebuggingException extends OOPMultipleException
+public class OOPDebuggingExceptionTraits extends OOPTraitException
 {
     private String message;
 
-    public OOPDebuggingException(String message)
+    public OOPDebuggingExceptionTraits(String message)
     {
         this.message = message;
     }
@@ -19,6 +18,6 @@ public class OOPDebuggingException extends OOPMultipleException
     @Override
     public String getMessage()
     {
-        return  "Debugging Exception : " + message;
+        return  "Debugging Exception Traits : " + message;
     }
 }
