@@ -159,6 +159,8 @@ public class OOPTraitControl
                     currMethods.add(method);
                 }
             }
+
+
         }
 
         HashSet<Pair<Class<?>, Method>> candidates = new HashSet<Pair<Class<?>, Method>>();
