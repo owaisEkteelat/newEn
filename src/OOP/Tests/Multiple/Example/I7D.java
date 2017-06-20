@@ -10,7 +10,7 @@ import OOP.Solution.Multiple.OOPMultipleMethod;
 @OOPMultipleInterface
 public interface I7D {
     @OOPMultipleMethod
-    default String f(Object p1,Object p2,Object p3) throws OOPMultipleException {return "";}
+    default String f(Object p1, Object p2, Object p3) throws OOPMultipleException {return "";}
     @OOPMultipleMethod
-    default String f(Integer p1,Object p2,E p3) throws OOPMultipleException {return "";}
+    default String f(Integer p1, Object p2, E p3) throws OOPMultipleException {return "";}
 }

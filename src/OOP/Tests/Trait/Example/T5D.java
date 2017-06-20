@@ -2,6 +2,8 @@ package OOP.Tests.Trait.Example;
 
 import OOP.Provided.Trait.OOPTraitException;
 import OOP.Solution.Trait.OOPTraitBehaviour;
+import OOP.Solution.Trait.OOPTraitMethod;
+import OOP.Solution.Trait.OOPTraitMethodModifier;
 import static OOP.Tests.Trait.Example.TestTrait.obj5E;
 
 /**
@@ -9,20 +11,24 @@ import static OOP.Tests.Trait.Example.TestTrait.obj5E;
  */
 @OOPTraitBehaviour
 public interface T5D {
+    @OOPTraitMethod
     void advance(Integer i) throws  OOPTraitException;
 
+    @OOPTraitMethod(modifier = OOPTraitMethodModifier.INTER_IMPL)
     default void doubleMoveUp() throws OOPTraitException{
         obj5E.moveUp();
         obj5E.moveUp();
     }
 
 
+    @OOPTraitMethod
     default String getFloor() throws  OOPTraitException {
     return "This is not the way to get the current floor :)";
     }
 
 
-        default void moveUp() throws OOPTraitException{}
+        @OOPTraitMethod
+    default void moveUp() throws OOPTraitException{}
 
 
 }

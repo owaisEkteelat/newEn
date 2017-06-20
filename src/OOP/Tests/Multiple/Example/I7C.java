@@ -10,5 +10,5 @@ import OOP.Solution.Multiple.OOPMultipleMethod;
 @OOPMultipleInterface
 public interface I7C {
     @OOPMultipleMethod
-    default String f(A p1,A p2,D p3) throws OOPMultipleException {return "";}
+    default String f(A p1, A p2, D p3) throws OOPMultipleException {return "";}
 }

@@ -10,7 +10,8 @@ import OOP.Solution.Multiple.OOPMultipleMethod;
 @OOPMultipleInterface
 public interface I6A {
     @OOPMultipleMethod
-    default void f() throws OOPMultipleException{}
+    default void f_override() throws OOPMultipleException{}
+
     @OOPMultipleMethod
     default String g() throws OOPMultipleException{return "";}
     @OOPMultipleMethod

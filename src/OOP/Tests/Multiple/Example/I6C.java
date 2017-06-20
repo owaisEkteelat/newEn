@@ -10,15 +10,16 @@ import OOP.Solution.Multiple.OOPMultipleMethod;
 @OOPMultipleInterface
 public interface I6C extends I6A,I6B{
     @OOPMultipleMethod
-    default void f() throws OOPMultipleException {}
+    default void f_override() throws OOPMultipleException{}
+
     @OOPMultipleMethod
     default String g() throws OOPMultipleException{return "";}
     @OOPMultipleMethod
     default String h(Double d) throws OOPMultipleException{return "";}
     @OOPMultipleMethod
-    default String h(Double d1,Double d2) throws OOPMultipleException{return "";}
+    default String h(Double d1, Double d2) throws OOPMultipleException{return "";}
     @OOPMultipleMethod
-    default void k(String s1,String s2) throws OOPMultipleException{}
+    default void k(String s1, String s2) throws OOPMultipleException{}
 
 
 }

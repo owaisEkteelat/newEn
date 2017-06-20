@@ -10,7 +10,7 @@ import OOP.Solution.Multiple.OOPMultipleMethod;
 @OOPMultipleInterface
 public interface I5A {
     @OOPMultipleMethod
-     default void f(A p1, B p2, A p3,A p4) throws OOPMultipleException{}
+     default void f(A p1, B p2, A p3, A p4) throws OOPMultipleException{}
     @OOPMultipleMethod
      default String g(A p1, B p2, A p3) throws OOPMultipleException{return "";}
 }

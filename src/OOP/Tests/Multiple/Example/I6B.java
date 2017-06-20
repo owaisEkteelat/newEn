@@ -10,13 +10,13 @@ import OOP.Solution.Multiple.OOPMultipleMethod;
 @OOPMultipleInterface
 public interface I6B {
     @OOPMultipleMethod
-    default void f() throws OOPMultipleException {}
+    default void f_override() throws OOPMultipleException{}
     @OOPMultipleMethod
     default String g() throws OOPMultipleException{return "";}
     @OOPMultipleMethod
     default String h(Integer i) throws OOPMultipleException{return "";}
     @OOPMultipleMethod
-    default String h(Integer i1,Integer i2) throws OOPMultipleException{return "";}
+    default String h(Integer i1, Integer i2) throws OOPMultipleException{return "";}
     @OOPMultipleMethod
     default void k(String s) throws OOPMultipleException{}
 
